@@ -18,7 +18,6 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		//Test TestZwei
 	}
 	
 	public static void main(String[] args) {
