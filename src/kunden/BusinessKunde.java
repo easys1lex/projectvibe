@@ -1,7 +1,7 @@
 package kunden;
 
 public class BusinessKunde extends Kunde{
-///uahjkfsddfsd
+///uahjkfsd
 	public BusinessKunde() {
 		// TODO Auto-generated constructor stub
 	}
