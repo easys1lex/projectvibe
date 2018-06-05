@@ -14,8 +14,9 @@ HWR CRM-Tool Gruppenprojekt
 4) Import Project<br>
   a) Choose Import from Git, Clone URI<br>
   b) Follow the Steps Provided by the Import Wizard<br>
-    &emsp;b.1) make sure to check the checkbox to save password in eclispe storage
+    &emsp;b.1) make sure to check the checkbox to save your credentials in the eclispe storage
     
 <b>done</b>
 
+<h3>Anforderungen an die Software:</h3>
 <h3></h3>
