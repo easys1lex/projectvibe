@@ -2,8 +2,8 @@ package kunden;
 
 public class BusinessKunde extends Kunde{
 	
-	private String x;
-	
+	private boolean isMale;
+	private long telefonnummer;
 
 	public BusinessKunde() {
 		// TODO Auto-generated constructor stub
