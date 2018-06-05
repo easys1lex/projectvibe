@@ -12,6 +12,7 @@ public abstract class Kunde {
 	
 	
 	public Kunde() {
+		
 	}
 
 }
