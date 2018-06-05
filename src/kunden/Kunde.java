@@ -7,11 +7,7 @@ public abstract class Kunde {
 	
 	private long kundennummer;
 	private String kontaktEmail;
-	
-	ObservableArray<Auftrag> x;
-	
-	Auftrag[] auftraege;
-
+	//Repaired Kunde
 	public Kunde() {
 	}
 
