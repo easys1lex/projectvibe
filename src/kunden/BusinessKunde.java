@@ -1,7 +1,6 @@
 package kunden;
 
 public class BusinessKunde extends Kunde{
-	
 	private boolean isMale;
 	private long telefonnummer;
 
