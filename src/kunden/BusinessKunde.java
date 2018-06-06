@@ -1,7 +1,9 @@
 package kunden;
 
 public class BusinessKunde extends Kunde{
-///uahjkfsd
+	private boolean isMale;
+	private long telefonnummer;
+
 	public BusinessKunde() {
 		// TODO Auto-generated constructor stub
 	}
