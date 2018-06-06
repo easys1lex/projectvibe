@@ -4,6 +4,8 @@ HWR CRM-Tool Gruppenprojekt
 @Autor:       David, Jannis, Johannes <br>
 @Start Date:  06.06.2018
 
+<b>This Project is still under Development!</b>
+
 <h3>Getting Started:</h3>
 
 1) Download and Install Git (https://git-scm.com/)
@@ -14,9 +16,8 @@ HWR CRM-Tool Gruppenprojekt
 4) Import Project<br>
   a) Choose Import from Git, Clone URI<br>
   b) Follow the Steps Provided by the Import Wizard<br>
-    &emsp;b.1) make sure to check the checkbox to save your credentials in the eclispe storage
-    
+    &emsp;b.1) make sure to check the checkbox to save your credentials in the eclispe storage<br>
 <b>done</b>
 
-<h3>Anforderungen an die Software:</h3>
-<h3></h3>
+<h3>Funktionale Anforderungen:</h3>
+<h3>Nichtfunktionale Anforderungen:</h3>
