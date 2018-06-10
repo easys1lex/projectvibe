@@ -2,7 +2,7 @@
 Ziel des Projektes ist das Erstellen eines CRM-System-Prototypen. Die Lösung wird es Anwendern ermöglichen, Kunden zu verwalten und zu strukturieren. Zusätzlich wird die Lösung Anwendern helfen, Kundenbeziehungen zu pflegen und zu dokumentieren.
 ### Muss-Kriterien
 - [ ] Arbeitsbereichmanagement
-  - [ ] Persistenz
+  - [ ] Persistenzmanagement
 - [ ] Kundenverwaltung
 - [ ] Ereignisverwaltung
 - [ ] Standalone Anwendung
@@ -12,6 +12,10 @@ Ziel des Projektes ist das Erstellen eines CRM-System-Prototypen. Die Lösung wi
 - [ ] Export der Kundendaten in eine PDF 
 
 ### Abgrenzungskriterien
+
+Folgende Features werden **nicht** implementiert:
+- Warenverwaltung
+- Verkaufsmanagement
 
 # Einsatz
 
