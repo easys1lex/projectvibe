@@ -9,6 +9,7 @@ Ziel des Projektes ist das Erstellen eines CRM-System-Prototypen. Die Lösung wi
 ### Kann-Kriterien
 - [ ] Grafische Darstellung der Kundenereignisse
 - [ ] Export der Kundendaten in eine PDF 
+- [ ] Notizverwaltung
 
 ### Abgrenzungskriterien
 
