@@ -31,8 +31,8 @@ Folgende Features werden **nicht** implementiert:
 * \>= 1 GB freier Festplattenspeicher
 
 # Funktionalität
-# Persistente Daten
 
+# Persistente Daten
 ### Folgende Daten müssen persistent speicherbar/ladbar sein:
 
 - [ ] Arbeitsplatz
@@ -44,9 +44,9 @@ Folgende Features werden **nicht** implementiert:
 
 # Leistungen
 # Benutzeroberfläche
-
 * Intuitiv
 * leicht bedienbar
 * Maussteuerung
 
 # Qualitätsziele
+* Iteraktionsfeedback
