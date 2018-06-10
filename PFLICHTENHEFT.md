@@ -46,5 +46,6 @@ Folgende Features werden **nicht** implementiert:
 
 * Intuitiv
 * leicht bedienbar
+* Maussteuerung
 
 # Qualitätsziele
