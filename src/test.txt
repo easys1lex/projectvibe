@@ -1,0 +1,19 @@
+Funktionalität:
+-	Kunden können angelegt und gelöscht werden
+-	Ereignisse können angelegt und gelöscht werden
+-	Ereignisse können Benutzer zugeordnet werden
+-	Es gibt eine zeitliche Einteilung der Ereignisse
+
+Qualitätsziele:
+-	Benutzerfreundlichkeit
+-	Anschaulichkeit
+-	Erweiterbarkeit
+
+Einsatz
+
+Anwendungsbereiche:
+-	Innerhalb eines Unternehmens zur internen Organisation
+-	Innerhalb eines Unternehmens zur systematischen Gestaltung der Kundenbeziehungsprozesse
+
+Zielgruppen:
+-	Prinzipiell alles Kunden eines Unternehmens
