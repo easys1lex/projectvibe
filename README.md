@@ -1,21 +1,49 @@
 # projectvibe
-HWR CRM-Tool Gruppenprojekt
+*HWR CRM-Tool Gruppenprojekt*
 
-@Autor:       David, Jannis, Johannes <br>
-@Start Date:  06.06.2018
+**Start Date:**  06.06.2018
 
-<h3>Getting Started:</h3>
+**This Project is still under Development!**
 
-1) Download and Install Git (https://git-scm.com/)
-2) Copy Close URL<br>
-  a) go to (https://github.com/easys1lex/projectvibe) and klick on: "clone or download"<br><t>
-    &emsp;a.1) Press on that greyish button next to the HTTPS URL
-3) Open Eclipse Workspace
-4) Import Project<br>
-  a) Choose Import from Git, Clone URI<br>
-  b) Follow the Steps Provided by the Import Wizard<br>
-    &emsp;b.1) make sure to check the checkbox to save password in eclispe storage
-    
-<b>done</b>
+## Description
 
-<h3></h3>
+ProjectVibe is a CRM Tool, that keeps track of Customer Information und helps to Visualize Customer Events.
+
+## Table of Contents
+
+ - [How to Contribute](#how-to-contribute)
+ - [Credits](#credits)
+ - [License](#license)
+
+## How to Contribute
+
+### Prerequisites
+
+* [Git](https://git-scm.com/)
+* [Java SE Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
+### Contribute using Eclipse
+
+1. Copy Https URL
+    1. go to [ProjectVibe](https://github.com/easys1lex/projectvibe) and klick on: "clone or download"
+    1. Press on that greyish button next to the HTTPS URL
+1. Open Eclipse Workspace
+1. Import Project
+    1. Choose Import from Git, Clone URI
+    1. Follow the Steps Provided by the Import Wizard
+        1. make sure to check the checkbox to save your credentials in the eclispe storage
+
+## Credits
+
+ @Fravid
+ 
+ @Hannes98
+ 
+ @easys1lex
+ 
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+---
+
+**Autor:** @easys1lex, June 6th 2018 <br>
