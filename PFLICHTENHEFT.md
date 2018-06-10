@@ -26,8 +26,8 @@ Folgende Features werden **nicht** implementiert:
   
 ### Hardwareanforderrungen
 * Bildschirm mit HD-Auflösung >= (1280x720)
-* >= 500 MB freier Arbeitsspeicher
-* >= 1 GB freier Festplattenspeicher
+* \>= 500 MB freier Arbeitsspeicher
+* \>= 1 GB freier Festplattenspeicher
 
 # Funktionalität
 # Persistente Daten
