@@ -1,13 +1,4 @@
-Funktionalität:
--	Kunden können angelegt und gelöscht werden
--	Ereignisse können angelegt und gelöscht werden
--	Ereignisse können Benutzer zugeordnet werden
--	Es gibt eine zeitliche Einteilung der Ereignisse
-
-Qualitätsziele:
--	Benutzerfreundlichkeit
--	Anschaulichkeit
--	Erweiterbarkeit
+//
 
 Einsatz
 
