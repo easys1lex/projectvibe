@@ -1,21 +1,19 @@
 # projectvibe
 *HWR CRM-Tool Gruppenprojekt*
 
-**Autor:** @easys1lex, June 6th 2018 <br>
-**Start Date:**  06.06.2018 <br>
+**Start Date:**  06.06.2018
 
 **This Project is still under Development!**
 
 ## Description
 
-To be 
+ProjectVibe is a CRM Tool, that keeps track of Customer Information und helps to Visualize Customer Events.
 
 ## Table of Contents
 
  - [How to Contribute](#how-to-contribute)
  - [Credits](#credits)
  - [License](#license)
- - [ToDo](#todo)
 
 ## How to Contribute
 
@@ -46,30 +44,6 @@ To be
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
-## ToDo
+---
 
-**This Readme**
-
-### Funktionale Anforderungen:
-
-*Kunde:*
-
-- [ ] Hinzufügen eines neuen Kunden
-- [ ] Löschen von einem Kunden
-- [ ] Persistentes Abspeichern eines Kunden
-- [ ] Laden einer Persistenten Kundendatei
-
-*Kundendatensatz:*
-
-- [ ] Anzeigen aller Kunden des Kundendatensatzes
-- [ ] Persistentes Speichern des Kundendatensatzes
-- [ ] Laden eines Persistenten Kundendatensatzes
-
-### Nichtfunktionale Anforderungen:
-
-*GUI*
-- [ ] User Feedback
-- [ ] Alerts
-
-### Bedingungen
-Standalone Application
+**Autor:** @easys1lex, June 6th 2018 <br>
