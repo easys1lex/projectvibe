@@ -9,13 +9,9 @@
 
 ProjectVibe is a CRM Tool, that keeps track of Customer Information und helps to Visualize Customer Events.
 
-## Table of Contents
-
- - [How to Contribute](#how-to-contribute)
- - [Credits](#credits)
- - [License](#license)
-
 ## How to Contribute
+
+We Appriciate any kind of Help. If you wnat to contribute just send a DM to @easys1lex.
 
 ### Prerequisites
 
