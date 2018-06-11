@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox prefHeight="465.0" prefWidth="487.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
         <menus>
@@ -27,13 +27,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ToolBar prefHeight="40.0" prefWidth="200.0">
-         <items>
-            <Button mnemonicParsing="false" text="Neuer Kunde" />
-            <Button mnemonicParsing="false" text="Neuer Auftrag" />
-         </items>
-      </ToolBar>
-      <SplitPane dividerPositions="0.43434343434343436">
+      <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="700.0">
         <items>
             <TableView prefHeight="200.0" prefWidth="200.0">
               <columns>
@@ -41,7 +35,18 @@
                 <TableColumn prefWidth="75.0" text="C2" />
               </columns>
             </TableView>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <LineChart BorderPane.alignment="CENTER">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+               </center>
+            </BorderPane>
         </items>
       </SplitPane>
    </children>
