@@ -1,4 +1,16 @@
 # Anforderungen
+## Nutzeranforderungen
+
+1. Die Lösung muss dem Nutzer die Möglichkeit bieten, Arbeitsmappen zu verwalten.
+   1. Die Lösung muss fähig sein, Arbeitsmappen anzulegen.
+   1. Die Lösung muss fähig sein, Arbeitsmappen zu löschen.
+   1. Die Lösung muss fähig sein, Kunden einer Arbeitsmappe hinzuzufügen.
+   1. Die Lösung muss fähig sein, Kunden aus einer Arbeitsmappe zu entfernen.
+
+1. Die Lösung muss dem Nutzer die Möglichkeit bieten, Kunden zu verwalten.
+   1. Die Lösung muss fähig sein, einen Kunden anzulegen.
+   1. Die Lösung muss fähig sein, einen Kunden zu löschen.
+   1. Die Lösung muss fähig sein, Kundendaten zu ändern.
 ## Kunden
 
 
