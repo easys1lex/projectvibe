@@ -1,8 +1,9 @@
-#Anforderungen
+# Anforderungen
 ## Kunden
 
 
 ## Ereignisse
+
 - Die Gui muss dem Nutzer die Möglichkeit bieten ein Ereignis anzulegen.
 - Die Gui muss dem Nutzer die Möglichkeit bieten ein Ereignis zu bearbeiten.
 - Die Gui muss dem Nutzer die Möglichkeit bieten ein Ereignis zu löschen.
@@ -16,6 +17,7 @@
 - Das System sollte fähig sein nach Ereignissen zu suchen.
 
 ## Notizen
+
 - Die Gui muss dem Nutzer die Möglichkeit bieten eine Notiz anzulegen.
 - Die Gui muss dem Nutzer die Möglichkeit bieten eine Notiz zu bearbeiten.
 - Die Gui muss dem Nutzer die Möglichkeit bieten eine Notiz zu löschen.
@@ -25,10 +27,12 @@
 - Das System muss fähig sein eine Notiz zu löschen.
 
 ## Alerts
-- Das System sollte fähig sein Alerts auszugeben.
-- Die Gui sollte fähig sein Alerts anzuzeigen.
+
+- Das System sollte fähig sein Alerts auszugeben
+- Die Gui sollte fähig sein Alerts anzuzeigen
 
 ## Darstellung
+
 - Die Gui sollte fähig sein Kundenereignisse chronologisch darzustellen.
 - Die Gui sollte übersichtlich strukturiert sein.
 
