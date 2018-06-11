@@ -3,7 +3,6 @@ Ziel des Projektes ist das Erstellen eines CRM-System-Prototypen. Die Lösung wi
 
 ### Muss-Kriterien
 - [ ] Arbeitsbereichmanagement
-  - [ ] Persistenzmanagement
 - [ ] Kundenverwaltung
 - [ ] Ereignisverwaltung
 - [ ] Standalone Anwendung
@@ -11,6 +10,7 @@ Ziel des Projektes ist das Erstellen eines CRM-System-Prototypen. Die Lösung wi
 ### Kann-Kriterien
 - [ ] Grafische Darstellung der Kundenereignisse
 - [ ] Export der Kundendaten in eine PDF 
+- [ ] Notizverwaltung
 
 ### Abgrenzungskriterien
 
@@ -19,6 +19,7 @@ Folgende Features werden **nicht** implementiert:
 - Verkaufsmanagement
 
 # Einsatz
+
 
 ### Anwendungsbereiche
 
@@ -35,21 +36,19 @@ Folgende Features werden **nicht** implementiert:
 
 # Umgebung
 
-### Systemanforderderungen
+# Umgebungsbedingungen
 
+### Systemanforderderungen
 * Betriebssytem mit einem Desktop-Environmet
 * Java JRE fähiges Gerät
   * Java SE Runtime Environment 8u171 wird vorrausgesetzt
   
-**Empfohlene Hardwareanforderrungen**
-* 1GB freier Arbeitsspeicher
-* 1GB freier Festplattenspeicher
-
-### Bedingungen
+### Hardwareanforderrungen
+* Bildschirm mit HD-Auflösung >= (1280x720)
+* \>= 500 MB freier Arbeitsspeicher
+* \>= 1 GB freier Festplattenspeicher
 
 # Funktionalität
-
-## FUNKTIONAL:
 
 ### Kunden
 - Das System muss in der Lage sein neue Kunden anzulegen
@@ -84,12 +83,22 @@ Folgende Features werden **nicht** implementiert:
 - Kunden
 - Historie (Zeitachse)
 - Kalender
+=======
+# Persistente Daten
+### Folgende Daten müssen persistent speicherbar/ladbar sein:
+
+- [ ] Arbeitsplatz
+- Kunden
+  - [ ] Importieren von Kundendateien
+  - [ ] Speichern von Kunden
+  
+*Die Ereignisobjekte gehören entwerder zu Kunden oder zu Arbeitsbereichen und werden deshalb in der Kundendatei oder im Arbeitsbereich gespeichert.*
 
 # Leistungen
 
 # Benutzeroberfläche
-
 * Intuitiv
+
 * Übersichtlich
 * Leicht bedienbar
 
@@ -98,3 +107,9 @@ Folgende Features werden **nicht** implementiert:
 - Erweiterbarkeit
 - Skalierbarkeit
 - Intuitivität
+
+* leicht bedienbar
+* Maussteuerung
+
+# Qualitätsziele
+* Iteraktionsfeedback
