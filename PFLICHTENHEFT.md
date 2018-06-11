@@ -40,6 +40,7 @@ Folgende Features werden **nicht** implementiert:
 * \>= 1 GB freier Festplattenspeicher
 
 # Funktionalität
+Die folgende Funktionalitätsbeschreibung erfolgt aus Nutzersicht.
 
 ### Kunden
 - Das System muss in der Lage sein neue Kunden anzulegen
