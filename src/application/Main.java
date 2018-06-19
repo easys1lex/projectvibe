@@ -1,91 +1,59 @@
 package application;
-	
-import javafx.application.Application;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.stage.Stage;
-import javafx.util.Callback;
-import kunden.BusinessKunde;
-import kunden.Kunde;
-import kunden.PrivatKunde;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 
+import java.io.IOException;
+
+import controller.Controller;
+import datenmodell.Arbeitsmappe;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class Main extends Application {
-	private TableView tabelle = createTable();
-	private ObservableList<Kunde> data = createObservableData();
+	
+	Arbeitsmappe mappe = null;
+	
+	
 	@Override
 	public void start(Stage primaryStage) {
+		
+		Controller.setMain(this);
+		initialisiereFenster(primaryStage);
+		setMappe(new Arbeitsmappe());
+		mappe.insertBusinessKunde("Jannis", "Kiesel", true, true, "jannis.kiesel@outlook.de", "Mühlenfeldstraße. 76", 15905360568L, "Fujitsu");
+		initialisiereKundenTabelle((BorderPane)primaryStage.getScene().getRoot());	
+	}
+	public void initialisiereFenster(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Fenster.fxml"));
+			BorderPane root = (BorderPane)loader.load();
 			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			tabelle.setItems(data);
-			root.setCenter(tabelle);
-			addAdd(root);
+			scene.getStylesheets().add(getClass().getResource("../view/application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("ProjectVibe");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public void initialisiereKundenTabelle(BorderPane root) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/KundenFenster.fxml"));
+		try {
+			root.setCenter(loader.load());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-	}
-	private ObservableList<Kunde> createObservableData() {
-		ObservableList<Kunde> temp = FXCollections.observableArrayList();
-		return temp;
-	}
-	private void addAdd(BorderPane root) {
-		final TextField addFirstName = new TextField();
-		addFirstName.setPromptText("First Name");
-		final TextField addLastName = new TextField();
-		addLastName.setPromptText("Last Name");
-		final TextField addEmail = new TextField();
-		addEmail.setPromptText("Email");
-		 
-		final Button addButton = new Button("Add");
-		addButton.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override public void handle(ActionEvent e) {
-		        data.add(new PrivatKunde(
-		            Long.parseLong(addFirstName.getText()),
-		            addEmail.getText()
-		        ));
-		        addFirstName.clear();
-		        addLastName.clear();
-		        addEmail.clear();
-		    }
-		});
-		root.setBottom(new HBox(addFirstName,addEmail,addButton));
-	}
-	
-	private TableView createTable() {
-		TableView<Kunde> temp = new TableView<Kunde>();
-		temp.setEditable(true);
-		TableColumn<Kunde, String> firstNameCol = new TableColumn<Kunde, String>("First Name");
-        TableColumn<Kunde, String> lastNameCol = new TableColumn<Kunde, String>("Last Name");
-        TableColumn<Kunde, String> emailCol = new TableColumn<Kunde, String>("Email");
-        temp.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
-        
-        firstNameCol.setCellValueFactory(
-        	    new PropertyValueFactory<Kunde,String>("kundenid")
-        	);
-        	emailCol.setCellValueFactory(
-        	    new PropertyValueFactory<Kunde,String>("email")
-        	);
-		return temp;
-	}
-	
 	public static void main(String[] args) {
 		launch(args);
+	}
+	public Arbeitsmappe getMappe() {
+		return mappe;
+	}
+	public void setMappe(Arbeitsmappe mappe) {
+		this.mappe = mappe;
 	}
 }
