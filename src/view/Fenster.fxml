@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FensterController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Datei">
+            <items>
+                  <MenuItem disable="true" mnemonicParsing="false" text="Öffnen" />
+                  <MenuItem fx:id="speicherArbeitsmappe" mnemonicParsing="false" onAction="#saveArbeitsmappe" text="Speichern" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem disable="true" mnemonicParsing="false" text="Importieren" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Exportieren" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Schließen" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

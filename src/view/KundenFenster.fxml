@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.KundenFensterController">
+   <children>
+      <SplitPane dividerPositions="0.5" layoutX="111.0" layoutY="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefViewportHeight="262.0" prefViewportWidth="295.0">
+                     <content>
+                        <TableView fx:id="kundenTabelle" minHeight="100.0" minWidth="350.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="kundenIDCol" prefWidth="75.0" text="KundenID" />
+                              <TableColumn fx:id="firmaCol" prefWidth="75.0" text="Firma" />
+                            <TableColumn prefWidth="75.0" text="Name">
+                                 <columns>
+                                    <TableColumn fx:id="vornameCol" prefWidth="75.0" text="Vorname" />
+                                    <TableColumn fx:id="nachnameCol" prefWidth="75.0" text="Nachname" />
+                                 </columns>
+                              </TableColumn>
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </center>
+               <top>
+                  <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <items>
+                      <Button fx:id="neuerKundeBtn" mnemonicParsing="false" onAction="#neuenKunden" text="Neuer Kunde" />
+                        <Button fx:id="kundenLoeschenBtn" mnemonicParsing="false" onAction="#loescheKunden" text="Kunden löschen" />
+                    </items>
+                  </ToolBar>
+               </top>
+            </BorderPane>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Nachname:" GridPane.rowIndex="2" />
+                  <Label text="Firma:" GridPane.rowIndex="1" />
+                  <Label text="Vorname" GridPane.rowIndex="3" />
+                  <Label text="E-Mail:" GridPane.rowIndex="4" />
+                  <Label text="Telefonnummer:" GridPane.rowIndex="5" />
+                  <Label text="Geschlecht:" GridPane.rowIndex="6" />
+                  <Label text="Telefonnummer:" GridPane.rowIndex="8" />
+                  <Label text="Wichtig:" />
+                  <Label text="Anschrift:" GridPane.rowIndex="7" />
+               </children>
+            </GridPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
