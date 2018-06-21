@@ -21,7 +21,7 @@ public class Main extends Application {
 		Controller.setMain(this);
 		initialisiereFenster(primaryStage);
 		setMappe(new Arbeitsmappe());
-		mappe.insertBusinessKunde("Jannis", "Kiesel", true, true, "jannis.kiesel@outlook.de", "Mühlenfeldstraße. 76", 15905360568L, "Fujitsu");
+//		mappe.insertBusinessKunde("Jannis", "Kiesel", true, true, "jannis.kiesel@outlook.de", "Mühlenfeldstraße. 76", 15905360568L, "Fujitsu");
 		initialisiereKundenTabelle((BorderPane)primaryStage.getScene().getRoot());	
 	}
 	public void initialisiereFenster(Stage primaryStage) {
