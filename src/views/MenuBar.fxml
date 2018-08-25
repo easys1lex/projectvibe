@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.FlowPane?>
+
+<MenuBar xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MenuController">
+  <menus>
+    <Menu mnemonicParsing="false" text="Datei">
+      <items>
+        <MenuItem fx:id="mNeueArbeismappe" mnemonicParsing="false" onAction="#createNewArbeitsmappe" text="Neue Arbeitsmappe" />
+            <MenuItem fx:id="mOeffneArbeitsmappe" mnemonicParsing="false" onAction="#loadArbeismappe" text="Öffne Arbeitsmappe" />
+            <MenuItem fx:id="mSaveArbeitsmappeUnter" mnemonicParsing="false" onAction="#saveArbeitsmappeUnter" text="Speichern unter" />
+            <MenuItem fx:id="mSaveArbeitsmappe" mnemonicParsing="false" onAction="#saveArbeitsmappe" text="Speichern" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="mExport" disable="true" mnemonicParsing="false" onAction="#openExportMenu" text="Exportieren" />
+            <MenuItem fx:id="mImport" disable="true" mnemonicParsing="false" onAction="#openImportMenu" text="Importieren" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="mClose" mnemonicParsing="false" onAction="#exitApplication" text="Schließen" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Anzeige">
+      <items>
+            <MenuItem fx:id="mKunden" mnemonicParsing="false" onAction="#switchToKundenView" text="Kunden" />
+            <MenuItem fx:id="mEreignisse" disable="true" mnemonicParsing="false" onAction="#switchToEreignisView" text="Ereignisse" />
+        <MenuItem fx:id="mNotizen" disable="true" mnemonicParsing="false" onAction="#switchToNotizenView" text="Notizen" />
+            <MenuItem fx:id="mAlerts" disable="true" mnemonicParsing="false" onAction="#switchToAlertView" text="Alerts" />
+            <MenuItem fx:id="mStartanzeige" mnemonicParsing="false" onAction="#switchToStartanzeige" text="Startanzeige" />
+      </items>
+    </Menu>
+      <Menu mnemonicParsing="false" text="Hilfe">
+        <items>
+          <MenuItem fx:id="mAnzeige" disable="true" mnemonicParsing="false" onAction="#showAnzeigeHelp" text="Anzeige" />
+            <MenuItem fx:id="mAlertHelp" disable="true" mnemonicParsing="false" onAction="#showAlertHelp" text="Alerts" />
+        </items>
+      </Menu>
+  </menus>
+</MenuBar>

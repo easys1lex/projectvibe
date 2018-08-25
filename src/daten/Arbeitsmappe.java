@@ -1,0 +1,52 @@
+package daten;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+import alerts.Message;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+public class Arbeitsmappe implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4215654795173943727L;
+
+	public transient ObservableList<Kunde> kundenListe;
+	public transient ObservableList<Message> alertListe;
+	public Kunde[] kundenArray;
+	private int kundenAnzahl;
+
+	public Arbeitsmappe() {
+		kundenListe = FXCollections.observableArrayList();
+	}
+
+	public Kunde insertKunde(String name, String firma) {
+		System.out.println("KundenAnzahl : "+kundenAnzahl);
+		
+		Kunde temp = new Kunde(++kundenAnzahl, name, firma);
+		kundenListe.add(temp);
+		return temp;
+	}
+	private void writeObject(ObjectOutputStream s) throws IOException {
+		kundenArray = kundenListe.toArray(new Kunde[kundenListe.size()]);
+		s.defaultWriteObject();
+		s.writeInt(kundenAnzahl);
+		s.writeObject(kundenArray);
+	}
+
+	private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
+		s.defaultReadObject();
+		this.kundenListe = FXCollections.observableArrayList();
+		this.kundenAnzahl = s.readInt();
+		System.out.println("KundenAnzahl : "+kundenAnzahl);
+		this.kundenArray = (Kunde[]) s.readObject();
+		for (Kunde k : kundenArray) {
+			kundenListe.add(k);
+		}
+	}
+}
