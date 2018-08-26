@@ -178,11 +178,14 @@ public class Controller {
 		fosLastFile.close();
 	}
 
-	public static void exitApplication() {
+	public static void exitApplication(boolean mitAbbrechen) {
 		if (main.getMappe() != null) {
-			openClosingDialog();
+			if (frageSaveFirst(mitAbbrechen) != false) {
+				System.out.println("EXIT UserApproved");
+				Platform.exit();
+			}
 		} else {
-			System.out.println("EXIT");
+			System.out.println("EXIT NothingToSave");
 			Platform.exit();
 		}
 	}
@@ -198,13 +201,6 @@ public class Controller {
 			}
 		} else {
 			speichereUnter();
-		}
-	}
-
-	private static void openClosingDialog() {
-		if (frageSaveFirst(false) != false) {
-			System.out.println("EXIT2");
-//			Platform.exit();
 		}
 	}
 

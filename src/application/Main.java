@@ -131,7 +131,7 @@ public class Main extends Application {
 			primaryStage.setWidth(1200);
 			primaryStage.setHeight(800);
 			primaryStage.setOnCloseRequest((WindowEvent event) -> {
-				Controller.exitApplication();
+				Controller.exitApplication(false);
 		    });
 			primaryStage.show();
 		} catch (Exception e) {

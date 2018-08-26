@@ -84,8 +84,8 @@ public class MenuController extends Controller{
 
     @FXML
     void exitApplication(ActionEvent event) {
+    	exitApplication(true);
     	updateDisable();
-    	exitApplication();
     	
     }
 

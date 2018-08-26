@@ -1,6 +1,7 @@
 package controllers;
 
 import daten.Kunde;
+import daten.Notiz;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -81,7 +82,8 @@ public class KundenDetailController extends Controller {
 
 	@FXML
 	void createNotiz(ActionEvent event) {
-
+		kunde.notizListe.add(new Notiz("Test","Test2"));
+		System.out.println("FIREEEEE");
 	}
 
 	@FXML

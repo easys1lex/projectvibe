@@ -17,8 +17,16 @@ public class Arbeitsmappe implements Serializable {
 	private static final long serialVersionUID = 4215654795173943727L;
 
 	public transient ObservableList<Kunde> kundenListe;
+	
+	//Für später
 	public transient ObservableList<Message> alertListe;
-	public Kunde[] kundenArray;
+	public transient ObservableList<Notiz> notizListe;
+	
+	private Message[] alertArray;
+	private Notiz[] notizArray; 
+	//
+	
+	private Kunde[] kundenArray;
 	private int kundenAnzahl;
 
 	public Arbeitsmappe() {
@@ -41,7 +49,6 @@ public class Arbeitsmappe implements Serializable {
 		s.defaultReadObject();
 		this.kundenListe = FXCollections.observableArrayList();
 		this.kundenAnzahl = s.readInt();
-		System.out.println("KundenAnzahl : "+kundenAnzahl);
 		this.kundenArray = (Kunde[]) s.readObject();
 		for (Kunde k : kundenArray) {
 			kundenListe.add(k);

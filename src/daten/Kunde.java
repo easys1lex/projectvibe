@@ -11,6 +11,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Kunde implements Serializable {
 
@@ -23,6 +25,10 @@ public class Kunde implements Serializable {
 	private transient SimpleStringProperty firma;
 	private transient SimpleLongProperty telefonnummer;
 	private transient SimpleBooleanProperty isFavorit;
+	
+	public transient ObservableList<Notiz> notizListe;
+	private  Notiz[] notizArray;
+	
 
 	public SimpleIntegerProperty getKundenNummer() {
 		return kundenNummer;
@@ -100,6 +106,7 @@ public class Kunde implements Serializable {
 		this.firma = new SimpleStringProperty(firma);
 		this.telefonnummer = new SimpleLongProperty(telefonnummer);
 		this.isFavorit = new SimpleBooleanProperty(isFavorit);
+		notizListe = FXCollections.observableArrayList();
 	}
 
 	private void writeObject(ObjectOutputStream s) throws IOException {
@@ -112,6 +119,9 @@ public class Kunde implements Serializable {
 		s.writeObject(this.firma.get());
 		s.writeLong(this.telefonnummer.get());
 		s.writeBoolean(this.isFavorit.get());
+		notizArray = notizListe.toArray(new Notiz[notizListe.size()]);
+		s.writeObject(notizArray);
+		
 	}
 
 	private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
@@ -124,5 +134,10 @@ public class Kunde implements Serializable {
 		this.firma = new SimpleStringProperty((String) s.readObject());
 		this.telefonnummer = new SimpleLongProperty(s.readLong());
 		this.isFavorit = new SimpleBooleanProperty(s.readBoolean());
+		this.notizListe = FXCollections.observableArrayList();
+		this.notizArray = (Notiz[]) s.readObject();
+		for (Notiz n : notizArray) {
+			notizListe.add(n);
+		}
 	}
 }
