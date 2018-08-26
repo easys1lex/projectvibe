@@ -36,56 +36,56 @@ public class Kunde implements Serializable {
 		return name;
 	}
 
-	public void setName(SimpleStringProperty name) {
-		this.name = name;
+	public void setName(String string) {
+		this.name.set(string);;
 	}
 
 	public SimpleStringProperty getVorName() {
 		return vorName;
 	}
 
-	public void setVorName(SimpleStringProperty vorName) {
-		this.vorName = vorName;
+	public void setVorName(String vorName) {
+		this.vorName.set(vorName);;
 	}
 
 	public SimpleStringProperty getEmail() {
 		return email;
 	}
 
-	public void setEmail(SimpleStringProperty email) {
-		this.email = email;
+	public void setEmail(String email) {
+		this.email.set(email);;
 	}
 
 	public SimpleStringProperty getAnschrift() {
 		return anschrift;
 	}
 
-	public void setAnschrift(SimpleStringProperty anschrift) {
-		this.anschrift = anschrift;
+	public void setAnschrift(String anschrift) {
+		this.anschrift.set(anschrift);
 	}
 
 	public SimpleStringProperty getFirma() {
 		return firma;
 	}
 
-	public void setFirma(SimpleStringProperty firma) {
-		this.firma = firma;
+	public void setFirma(String firma) {
+		this.firma.set(firma);;
 	}
 
 	public SimpleLongProperty getTelefonnummer() {
 		return telefonnummer;
 	}
 
-	public void setTelefonnummer(SimpleLongProperty telefonnummer) {
-		this.telefonnummer = telefonnummer;
+	public void setTelefonnummer(long telefonnummer) {
+		this.telefonnummer.set(telefonnummer);
 	}
 
 	public SimpleBooleanProperty getIsFavorit() {
 		return isFavorit;
 	}
 
-	public void setIsFavorit(SimpleBooleanProperty isFavorit) {
-		this.isFavorit = isFavorit;
+	public void setIsFavorit(boolean isFavorit) {
+		this.isFavorit.set(isFavorit);
 	}
 
 	public Kunde(int kundenNummer, String name, String vorName,

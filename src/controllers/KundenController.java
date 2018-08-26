@@ -1,9 +1,14 @@
 package controllers;
 
+import java.util.Optional;
+
 import daten.Kunde;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -77,9 +82,17 @@ public class KundenController extends Controller {
 
 	@FXML
 	void deleteCutsomer(ActionEvent event) {
-		int ausgewaelterKunde = kundenTabelle.getSelectionModel().getSelectedIndex();
-		kundenTabelle.getItems().remove(ausgewaelterKunde);
-		updateView();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Kunden Löschen");
+		alert.setHeaderText("Kunde: ID = "+kundenTabelle.getSelectionModel().getSelectedItem().getKundenNummer().get() +", Firma = "+kundenTabelle.getSelectionModel().getSelectedItem().getFirma().get()+".");
+		alert.setContentText("Möchten Sie diesen Kunden löschen?");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			int ausgewaelterKunde = kundenTabelle.getSelectionModel().getSelectedIndex();
+			kundenTabelle.getItems().remove(ausgewaelterKunde);
+			updateView();
+		}
 	}
 
 	@FXML
@@ -99,7 +112,10 @@ public class KundenController extends Controller {
 		if (kdc != null) {
 			System.out.println("kdc exists");
 			kundenTabelle.getSelectionModel().selectedItemProperty()
-					.addListener((observable, oldValue, newValue) -> kdc.update(newValue));
+					.addListener((observable, oldValue, newValue) -> {
+						kdc.update(newValue);
+						updateView();
+					});
 			updateView();
 		} else {
 			System.err.println("kdc does not exist");

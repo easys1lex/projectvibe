@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -13,6 +14,13 @@
         <items>
           <Button fx:id="bNeuesEreignis" mnemonicParsing="false" onAction="#createEreignis" text="Erstelle Ereignis" />
             <Button fx:id="bNeueNotiz" mnemonicParsing="false" onAction="#createNotiz" text="Erstelle Notiz" />
+            <MenuButton mnemonicParsing="false" text="Anzeige">
+              <items>
+                <MenuItem fx:id="bKunden" mnemonicParsing="false" onAction="#switchToKundenView" text="Kunde" />
+                <MenuItem fx:id="bEreignisse" mnemonicParsing="false" onAction="#switchToEreignisView" text="Ereignisse &amp; Termine" />
+                  <MenuItem fx:id="bNotiz" mnemonicParsing="false" onAction="#switchToNotizView" text="Notizen" />
+              </items>
+            </MenuButton>
         </items>
       </ToolBar>
       <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefViewportHeight="400.0" prefViewportWidth="600.0" prefWidth="550.0">
@@ -29,9 +37,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Vorname:" textAlignment="CENTER" GridPane.rowIndex="1">
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Vorname:" textAlignment="CENTER" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
@@ -55,7 +66,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <Label layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Firma:" textAlignment="CENTER" GridPane.rowIndex="3">
+                  <Label layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Firma:" textAlignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -68,7 +79,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="lVorname" disable="true" layoutX="320.0" layoutY="28.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="lVorname" disable="true" layoutX="320.0" layoutY="28.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </GridPane.margin>
@@ -78,7 +89,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="lFirma" disable="true" layoutX="310.0" layoutY="95.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="lFirma" disable="true" layoutX="310.0" layoutY="95.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </GridPane.margin>
@@ -88,11 +99,11 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </GridPane.margin>
                   </TextField>
-                  <RadioButton fx:id="rBearbeiten" mnemonicParsing="false" onAction="#turnEnablement" text="Kunden Bearbeiten" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                  <RadioButton fx:id="rBearbeiten" mnemonicParsing="false" onAction="#turnEnablement" text="Kunden Bearbeiten" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                      <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </padding></RadioButton>
-                  <Button fx:id="bSpeichern" mnemonicParsing="false" onAction="#saveKunde" text="Speichern" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                  <Button fx:id="bSpeichern" disable="true" mnemonicParsing="false" onAction="#saveKunde" text="Speichern" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
                   <Label layoutX="20.0" layoutY="211.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="E-Mail:" textAlignment="CENTER" GridPane.rowIndex="4">
                      <font>
                         <Font size="20.0" />
@@ -101,6 +112,45 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
+                  <TextField fx:id="lAnschrift" disable="true" layoutX="281.0" layoutY="188.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label layoutX="35.0" layoutY="185.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Anschrift:" textAlignment="CENTER" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <Label layoutX="25.0" layoutY="225.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Telefonnummer:" textAlignment="CENTER" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="lTelefonnummer" disable="true" layoutX="281.0" layoutY="228.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label layoutX="35.0" layoutY="265.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Ist Wichtig:" textAlignment="CENTER" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <ToggleButton fx:id="tWichtig" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Wichtiger Kunde" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </GridPane.margin>
+                  </ToggleButton>
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

@@ -26,7 +26,7 @@ public class Arbeitsmappe implements Serializable {
 	}
 
 	public Kunde insertKunde() {
-		Kunde temp = new Kunde(++kundenAnzahl,"","Neuer Kunde","","","",0l,false);
+		Kunde temp = new Kunde(++kundenAnzahl,"","","","","Neuer Kunde",0l,false);
 		kundenListe.add(temp);
 		return temp;
 	}

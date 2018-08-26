@@ -113,7 +113,6 @@ public class Controller {
 		ois.close();
 		fis.close();
 		main.setSaveFile(file);
-
 		return temp;
 
 	}
@@ -215,6 +214,7 @@ public class Controller {
 
 	public static void showKundenScene() {
 		main.getRootStage().setScene(main.getKundenScene());
+		kc.updateView();
 	}
 
 }
