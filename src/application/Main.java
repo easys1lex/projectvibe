@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class Main extends Application {
+	private static String lastPath = "savelink.ser";
 	Stage rootStage;
 	Scene StartScene;
 	Scene KundenScene;
@@ -156,5 +157,8 @@ public class Main extends Application {
 	}
 	public void setMappe(Arbeitsmappe mappe) {
 		this.a = mappe;
+	}
+	public String getLastPath() {
+		return this.lastPath;
 	}
 }

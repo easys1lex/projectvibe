@@ -1,6 +1,7 @@
 package controllers;
 
 import daten.Kunde;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -42,6 +43,7 @@ public class KundenDetailController extends Controller {
 	@FXML
 	private Button bSpeichern;
 
+
 	@FXML
 	void createEreignis(ActionEvent event) {
 
@@ -71,20 +73,18 @@ public class KundenDetailController extends Controller {
 
 	@FXML
 	void saveKunde(ActionEvent event) {
-		kunde.setName(lNachname.getText());
-		kunde.setFirma(lFirma.getText());
+		kunde.setName(new SimpleStringProperty(lNachname.getText()));
+		kunde.setFirma(new SimpleStringProperty(lFirma.getText()));
 	}
 
 	public void update(Kunde k) {
 		if (k != null) {
-			System.out.println(k.getFirma());
-			System.out.println(k.getName());
-			System.out.println(Integer.toString(k.getKundenNummer()));
-			lFirma.setText(k.getFirma());
-			lVorname.setText("---");
-			lNachname.setText(k.getName());
-			lKundenNummer.setText(Integer.toString(k.getKundenNummer()));
-			lEmail.setText("---");
+			lKundenNummer.setText(Integer.toString(k.getKundenNummer().get()));
+			lFirma.setText(k.getFirma().get());
+			lNachname.setText(k.getName().get());
+			lVorname.setText(k.getVorName().get());
+			lEmail.setText(k.getEmail().get());
+//			lAnschrift.setText();
 		} else {
 			lFirma.setText("");
 			lVorname.setText("");
@@ -104,6 +104,11 @@ public class KundenDetailController extends Controller {
 		bSpeichern.setDisable(false);
 		lEmail.setDisable(false);
 		rBearbeiten.setSelected(true);
+		lockBearbeiten(false);
+	}
+
+	public void lockBearbeiten(boolean setlocked) {
+		rBearbeiten.setDisable(setlocked);
 	}
 
 }

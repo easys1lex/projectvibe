@@ -21,9 +21,13 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.ButtonType;
 
 public class Controller {
-	protected static String lastPath = "savelink.ser";
+
 	protected static Main main;
 	protected static KundenDetailController kdc = null;
+	protected static KundenController kc = null;
+	protected static StartanzeigenController sac = null;
+	protected static FensterController fc = null;
+	protected static MenuController mc = null;
 
 	public static void setMain(Main m) {
 		main = m;
@@ -62,8 +66,8 @@ public class Controller {
 	}
 
 	public static void createArbeitsmappe() {
-		if(main.getMappe()!=null) {
-			if(frageSaveFirst(true)==false) {
+		if (main.getMappe() != null) {
+			if (frageSaveFirst(true) == false) {
 				return;
 			}
 		}
@@ -84,12 +88,12 @@ public class Controller {
 		ButtonType speichernUnter = new ButtonType("Speichern unter");
 		ButtonType ohneSpeichern = new ButtonType("Nicht speichern");
 		alert.getButtonTypes().setAll(speichern, speichernUnter, ohneSpeichern);
-		if(abbrechenEnabled) {
+		if (abbrechenEnabled) {
 			ButtonType abbrechen = new ButtonType("Abbrechen", ButtonData.CANCEL_CLOSE);
 			alert.getButtonTypes().add(abbrechen);
 		}
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == speichern){
+		if (result.get() == speichern) {
 			normalSave();
 			return true;
 		} else if (result.get() == speichernUnter) {
@@ -98,7 +102,7 @@ public class Controller {
 		} else if (result.get() == ohneSpeichern) {
 			return true;
 		} else {
-		   return false;
+			return false;
 		}
 	}
 
@@ -134,6 +138,11 @@ public class Controller {
 	}
 
 	public static void openArbeitsmappe() {
+		if (main.getMappe() != null) {
+			if (frageSaveFirst(true) == false) {
+				return;
+			}
+		}
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Öffne Arbeitsmappe");
 		ExtensionFilter extFilter = new ExtensionFilter("Vibe Save Files (*.vsf)", "*.vsf");
@@ -163,7 +172,7 @@ public class Controller {
 		oos.writeObject(a);
 		oos.close();
 		fos.close();
-		FileOutputStream fosLastFile = new FileOutputStream(new File(lastPath));
+		FileOutputStream fosLastFile = new FileOutputStream(new File(getMain().getLastPath()));
 		ObjectOutputStream oosLastFile = new ObjectOutputStream(fosLastFile);
 		oosLastFile.writeObject(file.getAbsolutePath());
 		oosLastFile.close();
@@ -183,7 +192,7 @@ public class Controller {
 		if (main.getSaveFile() != null) {
 			try {
 				save(main.getSaveFile());
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -194,7 +203,7 @@ public class Controller {
 	}
 
 	private static void openClosingDialog() {
-		if(frageSaveFirst(false)!=false) {
+		if (frageSaveFirst(false) != false) {
 			System.out.println("EXIT2");
 //			Platform.exit();
 		}

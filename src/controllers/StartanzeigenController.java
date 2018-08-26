@@ -6,21 +6,26 @@ import javafx.scene.control.Button;
 
 public class StartanzeigenController extends Controller {
 
-    @FXML
-    private Button bOpen;
+	@FXML
+	private Button bOpen;
 
-    @FXML
-    private Button bNeu;
+	@FXML
+	private Button bNeu;
 
-    @FXML
-    void createNewArbeitsmappe(ActionEvent event) {
-    	createArbeitsmappe();
-    }
+	@FXML
+	void createNewArbeitsmappe(ActionEvent event) {
+		createArbeitsmappe();
+	}
 
-    @FXML
-    void oeffneArbeitsmappe(ActionEvent event) {
-    	openArbeitsmappe();
+	@FXML
+	void oeffneArbeitsmappe(ActionEvent event) {
+		openArbeitsmappe();
 
-    }
+	}
+
+	@FXML
+	private void initialize() {
+		sac = this;
+	}
 
 }

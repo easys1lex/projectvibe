@@ -9,19 +9,36 @@
    <center>
       <SplitPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
         <items>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="398.0" prefWidth="279.0">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
-                  <ToolBar prefHeight="40.0" prefWidth="200.0">
+                  <ToolBar maxWidth="1.7976931348623157E308">
                     <items>
                       <Button fx:id="bNeuerKunde" mnemonicParsing="false" onAction="#createNewCustomer" text="Neuer Kunde" />
                         <Button fx:id="bKundeLoeschen" mnemonicParsing="false" onAction="#deleteCutsomer" text="Kunde Löschen" />
+                        <MenuButton mnemonicParsing="false" text="Anzeige">
+                          <items>
+                              <RadioMenuItem fx:id="rID" mnemonicParsing="false" onAction="#updateView" selected="true" text="Kundennummer" />
+                              <RadioMenuItem fx:id="rFirma" mnemonicParsing="false" onAction="#updateView" selected="true" text="Firma" />
+                              <RadioMenuItem fx:id="rNachname" mnemonicParsing="false" onAction="#updateView" selected="true" text="Nachname" />
+                              <RadioMenuItem fx:id="rVorname" mnemonicParsing="false" onAction="#updateView" text="Vorname" />
+                              <RadioMenuItem fx:id="rEmail" mnemonicParsing="false" onAction="#updateView" selected="true" text="E-Mail" />
+                              <RadioMenuItem fx:id="rAnschrift" mnemonicParsing="false" onAction="#updateView" text="Anschrift" />
+                              <RadioMenuItem fx:id="rTelefonnummer" mnemonicParsing="false" onAction="#updateView" text="Telefonnummer" />
+                              <RadioMenuItem fx:id="rFavorit" mnemonicParsing="false" onAction="#updateView" text="Favorit" />
+                          </items>
+                        </MenuButton>
                     </items>
                   </ToolBar>
-                  <TableView fx:id="kundenTabelle" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                  <TableView fx:id="kundenTabelle" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080.0">
                     <columns>
                       <TableColumn fx:id="kundenIDColumn" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="kundenNameColumn" prefWidth="75.0" text="Name" />
                         <TableColumn fx:id="kundenFirmaColumn" prefWidth="75.0" text="Firma" />
+                      <TableColumn fx:id="kundenNameColumn" prefWidth="75.0" text="Nachname" />
+                        <TableColumn fx:id="kundenVornameColumn" prefWidth="75.0" text="Vorname" />
+                        <TableColumn fx:id="kundenEmailColumn" prefWidth="75.0" text="E-Mail" />
+                        <TableColumn fx:id="kundenAnschriftColumn" prefWidth="75.0" text="Anschrift" />
+                        <TableColumn fx:id="kundenTelefonnummerColumn" prefWidth="75.0" text="Telefonnummer" />
+                        <TableColumn fx:id="kundenFavoritColumn" prefWidth="75.0" text="Favorit" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

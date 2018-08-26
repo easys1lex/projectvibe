@@ -25,10 +25,8 @@ public class Arbeitsmappe implements Serializable {
 		kundenListe = FXCollections.observableArrayList();
 	}
 
-	public Kunde insertKunde(String name, String firma) {
-		System.out.println("KundenAnzahl : "+kundenAnzahl);
-		
-		Kunde temp = new Kunde(++kundenAnzahl, name, firma);
+	public Kunde insertKunde() {
+		Kunde temp = new Kunde(++kundenAnzahl,"","Neuer Kunde","","","",0l,false);
 		kundenListe.add(temp);
 		return temp;
 	}
