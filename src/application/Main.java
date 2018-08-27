@@ -6,6 +6,8 @@ import java.io.IOException;
 import controllers.Controller;
 import controllers.KundenController;
 import daten.Arbeitsmappe;
+import daten.Kunde;
+import daten.Notiz;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -21,6 +23,13 @@ public class Main extends Application {
 	Stage rootStage;
 	Scene StartScene;
 	Scene KundenScene;
+	Scene NotizScene;
+	public Scene getNotizScene() {
+		return NotizScene;
+	}
+	public void setNotizScene(Scene notizScene) {
+		NotizScene = notizScene;
+	}
 	public Scene getKundenScene() {
 		return KundenScene;
 	}
@@ -78,6 +87,11 @@ public class Main extends Application {
 				a = Controller.load(new File(lastSaveLocation));
 				initializeArbeitsmappenScenes();
 				Controller.showKundenScene();
+				for(Kunde k :getMappe().kundenListe) {
+					for(Notiz n : k.notizListe) {
+						System.out.println(n.titel.get());
+					}
+				}
 				
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
@@ -110,7 +124,10 @@ public class Main extends Application {
 			KundenController k = (KundenController) loader.getController();
 			k.initialize();
 			setKundenScene(new Scene(kundenRoot));
-			
+			FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/NotizView.fxml"));
+			BorderPane notizRoot = (BorderPane) notizLoader.load();
+			notizRoot.setTop(createMenuBar());
+			setNotizScene(new Scene(notizRoot));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,9 +141,9 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Fenster.fxml"));
 			BorderPane root = (BorderPane)loader.load();
-//			root.setTop(getMenuBar());
 			Scene scene = new Scene(root);
 			addMenuBarToScene(scene);
+			primaryStage.setTitle("Customer Relationship Management");
 			primaryStage.setScene(scene);
 			primaryStage.setWidth(1200);
 			primaryStage.setHeight(800);

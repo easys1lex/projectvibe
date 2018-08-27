@@ -28,6 +28,10 @@ public class Controller {
 	protected static StartanzeigenController sac = null;
 	protected static FensterController fc = null;
 	protected static MenuController mc = null;
+	protected static NotizController nc = null;
+	public static NotizController getNotizController(){
+		return nc;
+	}
 
 	public static void setMain(Main m) {
 		main = m;
@@ -149,7 +153,7 @@ public class Controller {
 		File file = fileChooser.showOpenDialog(new Stage());
 		if (file != null) {
 			try {
-				load(file);
+				main.setMappe(load(file));
 				main.setSaveFile(file);
 				main.initializeArbeitsmappenScenes();
 				showKundenScene();
@@ -206,10 +210,18 @@ public class Controller {
 
 	public static void showStartScene() {
 		main.getRootStage().setScene(main.getStartScene());
+		if (kc!=null) {
+			kc.updateView();
+		}
 	}
 
 	public static void showKundenScene() {
 		main.getRootStage().setScene(main.getKundenScene());
+		kc.updateView();
+	}
+	public static void showNotizScene() {
+		main.initializeArbeitsmappenScenes();
+		main.getRootStage().setScene(main.getNotizScene());
 		kc.updateView();
 	}
 

@@ -102,7 +102,8 @@ public class MenuController extends Controller{
 
     @FXML
     void switchToNotizenView(ActionEvent event) {
-
+    	showNotizScene();
+    	updateDisable();
     }
 
     @FXML
@@ -125,11 +126,13 @@ public class MenuController extends Controller{
     		mSaveArbeitsmappe.setDisable(true);
     		mSaveArbeitsmappeUnter.setDisable(true);
     		mExport.setDisable(true);
+    		mNotizen.setDisable(true);
     		mKunden.setDisable(true);
     	}else {
     		mSaveArbeitsmappe.setDisable(false);
     		mSaveArbeitsmappeUnter.setDisable(false);
     		mExport.setDisable(false);
+    		mNotizen.setDisable(false);
     		mKunden.setDisable(false);
     	}
     }
@@ -142,7 +145,7 @@ public class MenuController extends Controller{
     @FXML
     public void switchToStartanzeige(ActionEvent event) {
     	showStartScene();
-    	updateDisable();
+//    	updateDisable();
     }
 
 }

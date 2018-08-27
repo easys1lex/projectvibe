@@ -1,5 +1,7 @@
 package controllers;
 
+import java.io.IOException;
+
 import daten.Kunde;
 import daten.Notiz;
 import javafx.beans.property.SimpleStringProperty;
@@ -7,11 +9,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 
 public class KundenDetailController extends Controller {
 	private Kunde kunde = null;
@@ -74,6 +81,11 @@ public class KundenDetailController extends Controller {
 
 	@FXML
 	private TextField lNachname;
+	
+	@FXML
+	private ScrollPane scrollPane;
+	@FXML
+	private GridPane gridPane;
 
 	@FXML
 	void createEreignis(ActionEvent event) {
@@ -82,13 +94,13 @@ public class KundenDetailController extends Controller {
 
 	@FXML
 	void createNotiz(ActionEvent event) {
-		kunde.notizListe.add(new Notiz("Test","Test2"));
-		System.out.println("FIREEEEE");
+		switchToNotizView(event);
+		nc.erstelleNotiz(kunde.notizListe);
 	}
 
 	@FXML
 	void switchToKundenView(ActionEvent event) {
-
+		scrollPane.setContent(gridPane);
 	}
 
 	@FXML
@@ -98,7 +110,19 @@ public class KundenDetailController extends Controller {
 
 	@FXML
 	void switchToNotizView(ActionEvent event) {
-
+		
+		FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/NotizView.fxml"));
+		try {
+			BorderPane notizRoot = (BorderPane) notizLoader.load();
+			notizRoot.setTop(null);
+			((NotizController) notizLoader.getController()).setListe(kunde.notizListe);
+			((NotizController) notizLoader.getController()).updateNotizView();
+			scrollPane.setContent(notizRoot);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@FXML
@@ -109,8 +133,8 @@ public class KundenDetailController extends Controller {
 			disableBearbeiten();
 		}
 	}
-
 	void disableBearbeiten() {
+		switchToKundenView(null);
 		lFirma.setDisable(true);
 		lVorname.setDisable(true);
 		lNachname.setDisable(true);
@@ -173,6 +197,11 @@ public class KundenDetailController extends Controller {
 
 	public void lockBearbeiten(boolean setlocked) {
 		rBearbeiten.setDisable(setlocked);
+		bNeueNotiz.setDisable(setlocked);
+		bNeuesEreignis.setDisable(setlocked);
+		bKunden.setDisable(setlocked);
+		bNotiz.setDisable(setlocked);
+		bEreignisse.setDisable(setlocked);
 	}
 	
 

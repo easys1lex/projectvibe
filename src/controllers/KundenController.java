@@ -84,11 +84,12 @@ public class KundenController extends Controller {
 	void deleteCutsomer(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Kunden Löschen");
-		alert.setHeaderText("Kunde: ID = "+kundenTabelle.getSelectionModel().getSelectedItem().getKundenNummer().get() +", Firma = "+kundenTabelle.getSelectionModel().getSelectedItem().getFirma().get()+".");
+		alert.setHeaderText("Kunde: ID = " + kundenTabelle.getSelectionModel().getSelectedItem().getKundenNummer().get()
+				+ ", Firma = " + kundenTabelle.getSelectionModel().getSelectedItem().getFirma().get() + ".");
 		alert.setContentText("Möchten Sie diesen Kunden löschen?");
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
+		if (result.get() == ButtonType.OK) {
 			int ausgewaelterKunde = kundenTabelle.getSelectionModel().getSelectedIndex();
 			kundenTabelle.getItems().remove(ausgewaelterKunde);
 			updateView();
@@ -111,11 +112,10 @@ public class KundenController extends Controller {
 		kundenTabelle.setItems(getMain().getMappe().kundenListe);
 		if (kdc != null) {
 			System.out.println("kdc exists");
-			kundenTabelle.getSelectionModel().selectedItemProperty()
-					.addListener((observable, oldValue, newValue) -> {
-						kdc.update(newValue);
-						updateView();
-					});
+			kundenTabelle.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+				kdc.update(newValue);
+				updateView();
+			});
 			updateView();
 		} else {
 			System.err.println("kdc does not exist");
@@ -126,10 +126,15 @@ public class KundenController extends Controller {
 	public void updateView() {
 		if (kundenTabelle.getSelectionModel().getSelectedIndex() < 0) {
 			bKundeLoeschen.setDisable(true);
-			kdc.lockBearbeiten(true);
+			if (kdc != null) {
+				kdc.lockBearbeiten(true);
+			}
+
 		} else {
 			bKundeLoeschen.setDisable(false);
-			kdc.lockBearbeiten(false);
+			if (kdc != null) {
+				kdc.lockBearbeiten(false);
+			}
 		}
 		kundenIDColumn.setVisible(rID.isSelected());
 		kundenFirmaColumn.setVisible(rFirma.isSelected());

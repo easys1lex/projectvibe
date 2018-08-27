@@ -31,6 +31,8 @@ public class Arbeitsmappe implements Serializable {
 
 	public Arbeitsmappe() {
 		kundenListe = FXCollections.observableArrayList();
+		alertListe = FXCollections.observableArrayList();
+		notizListe = FXCollections.observableArrayList();
 	}
 
 	public Kunde insertKunde() {
@@ -43,6 +45,8 @@ public class Arbeitsmappe implements Serializable {
 		s.defaultWriteObject();
 		s.writeInt(kundenAnzahl);
 		s.writeObject(kundenArray);
+		notizArray = notizListe.toArray(new Notiz[notizListe.size()]);
+		s.writeObject(notizArray);
 	}
 
 	private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
@@ -52,6 +56,11 @@ public class Arbeitsmappe implements Serializable {
 		this.kundenArray = (Kunde[]) s.readObject();
 		for (Kunde k : kundenArray) {
 			kundenListe.add(k);
+		}
+		this.notizListe = FXCollections.observableArrayList();
+		this.notizArray = (Notiz[])s.readObject();
+		for(Notiz n : notizArray) {
+			notizListe.add(n);
 		}
 	}
 }
