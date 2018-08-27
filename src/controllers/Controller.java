@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Optional;
 
+import alerts.Message;
 import application.Main;
 import daten.Arbeitsmappe;
 import javafx.application.Platform;
@@ -29,6 +30,7 @@ public class Controller {
 	protected static FensterController fc = null;
 	protected static MenuController mc = null;
 	protected static NotizController nc = null;
+	protected static AlertViewController avc = null;
 	public static NotizController getNotizController(){
 		return nc;
 	}
@@ -79,8 +81,10 @@ public class Controller {
 		main.setMappe(test);
 		main.setSaveFile(null);
 		main.initializeArbeitsmappenScenes();
+		avc.addMessage(new Message("Neue Arbeitsmappe erstellt"));
 		showKundenScene();
 	}
+
 
 	private static boolean frageSaveFirst(boolean abbrechenEnabled) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -222,6 +226,10 @@ public class Controller {
 	public static void showNotizScene() {
 		main.initializeArbeitsmappenScenes();
 		main.getRootStage().setScene(main.getNotizScene());
+		kc.updateView();
+	}
+	public static void showAlertScene() {
+		main.getRootStage().setScene(main.getAlertScene());
 		kc.updateView();
 	}
 

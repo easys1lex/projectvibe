@@ -24,6 +24,10 @@ public class Main extends Application {
 	Scene StartScene;
 	Scene KundenScene;
 	Scene NotizScene;
+	Scene AlertScene;
+	public void setAlertScene(Scene alertScene) {
+		AlertScene = alertScene;
+	}
 	public Scene getNotizScene() {
 		return NotizScene;
 	}
@@ -87,11 +91,6 @@ public class Main extends Application {
 				a = Controller.load(new File(lastSaveLocation));
 				initializeArbeitsmappenScenes();
 				Controller.showKundenScene();
-				for(Kunde k :getMappe().kundenListe) {
-					for(Notiz n : k.notizListe) {
-						System.out.println(n.titel.get());
-					}
-				}
 				
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
@@ -124,6 +123,9 @@ public class Main extends Application {
 			KundenController k = (KundenController) loader.getController();
 			k.initialize();
 			setKundenScene(new Scene(kundenRoot));
+			BorderPane AlertRoot = (BorderPane) FXMLLoader.load(getClass().getResource("../views/AlertView.fxml"));
+			AlertRoot.setTop(createMenuBar());
+			setAlertScene(new Scene(AlertRoot));
 			FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/NotizView.fxml"));
 			BorderPane notizRoot = (BorderPane) notizLoader.load();
 			notizRoot.setTop(createMenuBar());
@@ -177,5 +179,9 @@ public class Main extends Application {
 	}
 	public String getLastPath() {
 		return this.lastPath;
+	}
+	public Scene getAlertScene() {
+		// TODO Auto-generated method stub
+		return AlertScene;
 	}
 }

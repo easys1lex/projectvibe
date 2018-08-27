@@ -12,7 +12,8 @@ import javafx.scene.layout.VBox;
 
 public class NotizController extends Controller {
 	ObservableList<Notiz> notizen = null;
-	public void setListe(ObservableList<Notiz> n){
+
+	public void setListe(ObservableList<Notiz> n) {
 		notizen = n;
 	}
 
@@ -53,17 +54,16 @@ public class NotizController extends Controller {
 
 	public void updateNotizView() {
 		flowPane.getChildren().clear();
+		Button deleteNotiz = null;
 		for (Notiz n : notizen) {
-			
 			if (((VBox) n.getContent()).getChildren().size() < 2) {
-				Button deleteNotiz = new Button("Löschen");
+				deleteNotiz = new Button("Löschen");
+				((VBox) n.getContent()).getChildren().add(deleteNotiz);
 				deleteNotiz.setOnAction((event) -> {
 					notizen.remove(n);
 					updateNotizView();
 				});
-				((VBox) n.getContent()).getChildren().add(deleteNotiz);
 			}
-
 			flowPane.getChildren().add(n);
 		}
 	}

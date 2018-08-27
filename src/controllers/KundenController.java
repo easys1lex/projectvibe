@@ -74,7 +74,7 @@ public class KundenController extends Controller {
 
 	@FXML
 	void createNewCustomer(ActionEvent event) {
-		Kunde k = getMain().getMappe().insertKunde();
+		getMain().getMappe().insertKunde();
 		kundenTabelle.getSelectionModel().selectLast();
 		kdc.makeEditable();
 		updateView();

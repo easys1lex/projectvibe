@@ -108,7 +108,8 @@ public class MenuController extends Controller{
 
     @FXML
     void switchToAlertView(ActionEvent event) {
-
+    	showAlertScene();
+    	updateDisable();
     }
 
     @FXML
@@ -128,12 +129,14 @@ public class MenuController extends Controller{
     		mExport.setDisable(true);
     		mNotizen.setDisable(true);
     		mKunden.setDisable(true);
+    		mAlerts.setDisable(true);
     	}else {
     		mSaveArbeitsmappe.setDisable(false);
     		mSaveArbeitsmappeUnter.setDisable(false);
     		mExport.setDisable(false);
     		mNotizen.setDisable(false);
     		mKunden.setDisable(false);
+    		mAlerts.setDisable(false);
     	}
     }
     @FXML
