@@ -2,9 +2,9 @@ package controllers;
 
 import java.io.IOException;
 
+import application.Main;
 import daten.Kunde;
-import daten.Notiz;
-import javafx.beans.property.SimpleStringProperty;
+import ereignisse.Ereignis;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -12,29 +12,44 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class KundenDetailController extends Controller {
+	public KundenDetailController() {
+		super(Main.getHauptController().getMain());
+	}
+
 	private Kunde kunde = null;
 
 	@FXML
 	private void initialize() {
-		kdc = this;
 		// force the field to be numeric only
 		lTelefonnummer.textProperty().addListener((ChangeListener<? super String>) new ChangeListener<String>() {
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
-		        String newValue) {
-		        if (!newValue.matches("\\d*")) {
-		            lTelefonnummer.setText(newValue.replaceAll("[^\\d]", ""));
-		        }
-		    }
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					lTelefonnummer.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
 		});
+	}
+
+	@FXML
+	void showEreignis(MouseEvent event) {
+		Ereignis e = ereigisListe.getSelectionModel().getSelectedItem();
+		if(e!=null) {
+			System.out.println(e.toString());
+		}
 	}
 
 	@FXML
@@ -50,10 +65,10 @@ public class KundenDetailController extends Controller {
 	private Button bNeueNotiz;
 
 	@FXML
-	private TextField lTelefonnummer;
+	private ScrollPane scrollPane;
 
 	@FXML
-	private ToggleButton tWichtig;
+	private TextField lTelefonnummer;
 
 	@FXML
 	private RadioButton rBearbeiten;
@@ -74,28 +89,52 @@ public class KundenDetailController extends Controller {
 	private MenuItem bEreignisse;
 
 	@FXML
+	private ToggleButton tWichtig;
+
+	@FXML
 	private MenuItem bNotiz;
+
+	@FXML
+	private ListView<Ereignis> ereigisListe;
 
 	@FXML
 	private TextField lEmail;
 
 	@FXML
 	private TextField lNachname;
-	
-	@FXML
-	private ScrollPane scrollPane;
+
 	@FXML
 	private GridPane gridPane;
 
-	@FXML
-	void createEreignis(ActionEvent event) {
+	
+	void deleteSelectedEreignis() {
 
 	}
 
 	@FXML
+	void createEreignis(ActionEvent event) {
+		Ereignis neu = getMain().getMappe().insertEreignis(kunde);
+		VBox root;
+		try {
+			root = (VBox) FXMLLoader.load(getClass().getResource("../views/EreignisDetailView.fxml"));
+			Stage ereignisStage = new Stage();
+			ereignisStage.setTitle("Ereignis mit der ID: "+neu.getEreignisID().get());
+			ereignisStage.setScene(new Scene(root));
+			ereignisStage.setWidth(600);
+			ereignisStage.setHeight(600);
+			ereignisStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	
+	}
+
+	@FXML
 	void createNotiz(ActionEvent event) {
+		getMain().getNotizController().erstelleNotiz(kunde.notizListe);
 		switchToNotizView(event);
-		nc.erstelleNotiz(kunde.notizListe);
 	}
 
 	@FXML
@@ -110,7 +149,7 @@ public class KundenDetailController extends Controller {
 
 	@FXML
 	void switchToNotizView(ActionEvent event) {
-		
+
 		FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/NotizView.fxml"));
 		try {
 			BorderPane notizRoot = (BorderPane) notizLoader.load();
@@ -122,7 +161,7 @@ public class KundenDetailController extends Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@FXML
@@ -133,6 +172,7 @@ public class KundenDetailController extends Controller {
 			disableBearbeiten();
 		}
 	}
+
 	void disableBearbeiten() {
 		switchToKundenView(null);
 		lFirma.setDisable(true);
@@ -159,6 +199,7 @@ public class KundenDetailController extends Controller {
 	}
 
 	public void update(Kunde k) {
+		kunde = k;
 		if (k != null) {
 			lKundenNummer.setText(Integer.toString(k.getKundenNummer().get()));
 			lFirma.setText(k.getFirma().get());
@@ -168,7 +209,9 @@ public class KundenDetailController extends Controller {
 			lAnschrift.setText(k.getAnschrift().get());
 			lTelefonnummer.setText(Long.toString(k.getTelefonnummer().get()));
 			tWichtig.setSelected(k.getIsFavorit().get());
+			ereigisListe.setItems(k.ereignisListe);
 		} else {
+			System.err.println("NOKUNDE");
 			lKundenNummer.setText("");
 			lFirma.setText("");
 			lNachname.setText("");
@@ -177,9 +220,9 @@ public class KundenDetailController extends Controller {
 			lAnschrift.setText("");
 			lTelefonnummer.setText("");
 			tWichtig.setSelected(false);
+			ereigisListe.setItems(null);
 		}
 		disableBearbeiten();
-		kunde = k;
 	}
 
 	public void makeEditable() {
@@ -203,7 +246,5 @@ public class KundenDetailController extends Controller {
 		bNotiz.setDisable(setlocked);
 		bEreignisse.setDisable(setlocked);
 	}
-	
-
 
 }

@@ -2,7 +2,13 @@ package controllers;
 
 import java.util.Optional;
 
+import alerts.AchtungMessage;
+import alerts.InfoMessage;
+import alerts.SuccessMessage;
+import application.Main;
 import daten.Kunde;
+import daten.Notiz;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,6 +20,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class KundenController extends Controller {
+
+	public KundenController() {
+		super(Main.getHauptController().getMain());
+		// TODO Auto-generated constructor stub
+	}
 
 	@FXML
 	private TableColumn<Kunde, String> kundenVornameColumn;
@@ -76,8 +87,9 @@ public class KundenController extends Controller {
 	void createNewCustomer(ActionEvent event) {
 		getMain().getMappe().insertKunde();
 		kundenTabelle.getSelectionModel().selectLast();
-		kdc.makeEditable();
+		getMain().getKundenDetailController().makeEditable();
 		updateView();
+		getMain().getAlertViewController().addMessage(new InfoMessage("Ein neuer Kunde wurde angelegt"));
 	}
 
 	@FXML
@@ -91,6 +103,9 @@ public class KundenController extends Controller {
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			int ausgewaelterKunde = kundenTabelle.getSelectionModel().getSelectedIndex();
+			Kunde k = kundenTabelle.getSelectionModel().getSelectedItem();
+			getMain().getAlertViewController().addMessage(new AchtungMessage(
+					"Ein Kunde " + k.getName().get() + " der Firma " + k.getFirma().get() + " wurde gelöscht."));
 			kundenTabelle.getItems().remove(ausgewaelterKunde);
 			updateView();
 		}
@@ -98,7 +113,6 @@ public class KundenController extends Controller {
 
 	@FXML
 	public void initialize() {
-		kc = this;
 		System.out.println("Kundentabelle wird initialisiert.");
 		kundenIDColumn.setCellValueFactory(cellData -> cellData.getValue().getKundenNummer().asObject());
 		kundenFirmaColumn.setCellValueFactory(cellData -> cellData.getValue().getFirma());
@@ -110,12 +124,13 @@ public class KundenController extends Controller {
 		kundenFavoritColumn.setCellValueFactory(cellData -> cellData.getValue().getIsFavorit().asObject());
 
 		kundenTabelle.setItems(getMain().getMappe().kundenListe);
-		if (kdc != null) {
+		if (getMain().getKundenDetailController() != null) {
 			System.out.println("kdc exists");
 			kundenTabelle.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-				kdc.update(newValue);
+				getMain().getKundenDetailController().update(newValue);
 				updateView();
 			});
+
 			updateView();
 		} else {
 			System.err.println("kdc does not exist");
@@ -126,14 +141,14 @@ public class KundenController extends Controller {
 	public void updateView() {
 		if (kundenTabelle.getSelectionModel().getSelectedIndex() < 0) {
 			bKundeLoeschen.setDisable(true);
-			if (kdc != null) {
-				kdc.lockBearbeiten(true);
+			if (getMain().getKundenDetailController() != null) {
+				getMain().getKundenDetailController().lockBearbeiten(true);
 			}
 
 		} else {
 			bKundeLoeschen.setDisable(false);
-			if (kdc != null) {
-				kdc.lockBearbeiten(false);
+			if (getMain().getKundenDetailController() != null) {
+				getMain().getKundenDetailController().lockBearbeiten(false);
 			}
 		}
 		kundenIDColumn.setVisible(rID.isSelected());

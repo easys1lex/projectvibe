@@ -3,8 +3,14 @@ package application;
 import java.io.File;
 import java.io.IOException;
 
+import controllers.AlertViewController;
 import controllers.Controller;
+import controllers.FensterController;
 import controllers.KundenController;
+import controllers.KundenDetailController;
+import controllers.MenuController;
+import controllers.NotizController;
+import controllers.StartanzeigenController;
 import daten.Arbeitsmappe;
 import daten.Kunde;
 import daten.Notiz;
@@ -13,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
@@ -20,34 +28,85 @@ import javafx.scene.layout.VBox;
 
 public class Main extends Application {
 	private static String lastPath = "savelink.ser";
+	private static Controller hauptController;
+	protected KundenDetailController kdc;
+	protected KundenController kc;
+	protected StartanzeigenController sac;
+	protected FensterController fc;
+	protected MenuController mc;
+	protected NotizController nc;
+	protected AlertViewController avc;
+
+	public static Controller getHauptController() {
+		return hauptController;
+	}
+
+	public static void setHauptController(Controller hauptController) {
+		Main.hauptController = hauptController;
+	}
+
 	Stage rootStage;
 	Scene StartScene;
 	Scene KundenScene;
 	Scene NotizScene;
 	Scene AlertScene;
+
+	@Override
+	public void start(Stage primaryStage) {
+		hauptController = new Controller(this);
+		setRootStage(primaryStage);
+//		Übergebe diese Man allen Controllern, damit diese auf das Datenmodell zugreifen können.
+		hauptController.setMain(this);
+//		Erstelle die JavaFX GUI
+		rootStage = createWindow(rootStage);
+//		Überprüfe, ob schon eine Arbeitsmappe existiert, falls keine existiert lege den startbildschirm fest.
+		String lastSaveLocation = hauptController.pruefeLastSave();
+		if (lastSaveLocation != null) {
+			try {
+				a = hauptController.loadArbeitsMappeFromFile(new File(lastSaveLocation));
+				initializeArbeitsmappenScenes();
+				hauptController.showKundenScene();
+
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			initialisiereStartScreen();
+			getRootStage().setScene(getStartScene());
+		}
+	}
+
 	public void setAlertScene(Scene alertScene) {
 		AlertScene = alertScene;
 	}
+
 	public Scene getNotizScene() {
 		return NotizScene;
 	}
+
 	public void setNotizScene(Scene notizScene) {
 		NotizScene = notizScene;
 	}
+
 	public Scene getKundenScene() {
 		return KundenScene;
 	}
+
 	public void setKundenScene(Scene kundenScene) {
 		KundenScene = kundenScene;
 	}
 
 	MenuBar menuBar;
+
 	public void setMenuBar(MenuBar bar) {
 		this.menuBar = bar;
 	}
+
 	public MenuBar getMenuBar() {
 		return this.menuBar;
 	}
+
 	public Scene getStartScene() {
 		return StartScene;
 	}
@@ -66,7 +125,7 @@ public class Main extends Application {
 
 	Arbeitsmappe a = null;
 	private File saveFile;
-	
+
 	public File getSaveFile() {
 		return saveFile;
 	}
@@ -75,33 +134,6 @@ public class Main extends Application {
 		this.saveFile = saveFile;
 	}
 
-
-	@Override
-	public void start(Stage primaryStage){
-		setRootStage(primaryStage);
-//		Übergebe diese Man allen Controllern, damit diese auf das Datenmodell zugreifen können.
-		Controller.setMain(this);
-//		Erstelle die JavaFX GUI
-		createWindow(rootStage);
-		initialisiereStartScreen();
-//		Überprüfe, ob schon eine Arbeitsmappe existiert, falls keine existiert lege den startbildschirm fest.
-		String lastSaveLocation = Controller.pruefeLastSave();
-		if (lastSaveLocation!=null) {
-			try {
-				a = Controller.load(new File(lastSaveLocation));
-				initializeArbeitsmappenScenes();
-				Controller.showKundenScene();
-				
-			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else {
-			System.out.println("Alternativ");
-			
-			Controller.showStartScene();
-		}
-	}
 	private void initialisiereStartScreen() {
 		try {
 			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../views/Startanzeige.fxml"));
@@ -113,36 +145,88 @@ public class Main extends Application {
 	}
 
 	public void initializeArbeitsmappenScenes() {
+		initialisiereKundenScene();
+		initialisiereAlertScene();
+		initialisiereNotizScene();
+	}
+
+	private void initialisiereNotizScene() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Kundenanzeige.fxml"));
-			BorderPane kundenRoot = (BorderPane) loader.load();
-			kundenRoot.setTop(createMenuBar());
-			SplitPane sp = (SplitPane)kundenRoot.getCenter();
-			VBox kundenDetail = (VBox) FXMLLoader.load(getClass().getResource("../views/KundenDetailAnzeige.fxml"));
-			sp.getItems().add(kundenDetail);
-			KundenController k = (KundenController) loader.getController();
-			k.initialize();
-			setKundenScene(new Scene(kundenRoot));
-			BorderPane AlertRoot = (BorderPane) FXMLLoader.load(getClass().getResource("../views/AlertView.fxml"));
-			AlertRoot.setTop(createMenuBar());
-			setAlertScene(new Scene(AlertRoot));
 			FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/NotizView.fxml"));
 			BorderPane notizRoot = (BorderPane) notizLoader.load();
+			setNotizController(notizLoader.getController());
 			notizRoot.setTop(createMenuBar());
 			setNotizScene(new Scene(notizRoot));
-		} catch (Exception e) {
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+	private void setNotizController(NotizController controller) {
+		this.nc = controller;
+
+	}
+
+	private void initialisiereKundenScene() {
+		try {
+			FXMLLoader detailLoader = new FXMLLoader(getClass().getResource("../views/KundenDetailAnzeige.fxml"));
+			VBox kundenDetail = (VBox) detailLoader.load();
+			setKundenDetailController(detailLoader.getController());
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Kundenanzeige.fxml"));
+			BorderPane kundenRoot = (BorderPane) loader.load();
+			kundenRoot.setTop(createMenuBar());
+			SplitPane sp = (SplitPane) kundenRoot.getCenter();
+			sp.getItems().add(kundenDetail);
+			setKundenController(loader.getController());
+			setKundenScene(new Scene(kundenRoot));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private void setKundenDetailController(KundenDetailController controller) {
+		System.out.println("KDC SET");
+		this.kdc = controller;
+
+	}
+
+	private void setKundenController(KundenController controller) {
+		this.kc = controller;
+
+	}
+
+	private void initialisiereAlertScene() {
+		try {
+			FXMLLoader alertLoader = new FXMLLoader(getClass().getResource("../views/AlertView.fxml"));
+			BorderPane AlertRoot = (BorderPane) alertLoader.load();
+			AlertRoot.setTop(createMenuBar());
+			setAlertController(alertLoader.getController());
+			Scene temp = new Scene(AlertRoot);
+			setAlertScene(temp);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void setAlertController(AlertViewController controller) {
+		// TODO Auto-generated method stub
+		this.avc = controller;
+
+	}
+
 	public void addMenuBarToScene(Scene s) {
 		BorderPane x = (BorderPane) s.getRoot();
 		x.setTop(getMenuBar());
 	}
 
-	public void createWindow(Stage primaryStage) {
+	public Stage createWindow(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Fenster.fxml"));
-			BorderPane root = (BorderPane)loader.load();
+			FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("../views/Fenster.fxml"));
+			BorderPane root = (BorderPane) rootLoader.load();
 			Scene scene = new Scene(root);
 			addMenuBarToScene(scene);
 			primaryStage.setTitle("Customer Relationship Management");
@@ -150,17 +234,19 @@ public class Main extends Application {
 			primaryStage.setWidth(1200);
 			primaryStage.setHeight(800);
 			primaryStage.setOnCloseRequest((WindowEvent event) -> {
-				Controller.exitApplication(false);
-		    });
+				hauptController.exitApplication(false);
+			});
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return primaryStage;
 	}
+
 	public MenuBar createMenuBar() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/MenuBar.fxml"));
-			MenuBar menu = (MenuBar)loader.load();
+			MenuBar menu = (MenuBar) loader.load();
 			return menu;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -171,17 +257,45 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 	public Arbeitsmappe getMappe() {
 		return a;
 	}
+
 	public void setMappe(Arbeitsmappe mappe) {
 		this.a = mappe;
 	}
+
 	public String getLastPath() {
 		return this.lastPath;
 	}
+
 	public Scene getAlertScene() {
 		// TODO Auto-generated method stub
 		return AlertScene;
+	}
+
+	public KundenController getKundenController() {
+		return kc;
+	}
+
+	public KundenDetailController getKundenDetailController() {
+		// TODO Auto-generated method stub
+		return this.kdc;
+	}
+
+	public AlertViewController getAlertViewController() {
+		// TODO Auto-generated method stub
+		return this.avc;
+	}
+
+	public NotizController getNotizController() {
+		// TODO Auto-generated method stub
+		return this.nc;
+	}
+
+	public MenuController getMenuController() {
+		// TODO Auto-generated method stub
+		return this.mc;
 	}
 }

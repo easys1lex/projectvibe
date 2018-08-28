@@ -1,26 +1,33 @@
 package controllers;
 
 import alerts.Message;
+import application.Main;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
 
 public class AlertViewController extends Controller{
-	private ObservableList<Message> alerts = null;
+	public AlertViewController() {
+		super(Main.getHauptController().getMain());
+		// TODO Auto-generated constructor stub
+	}
+
+	protected ObservableList<Message> alerts = null;
 
     @FXML
     private ListView<Message> boxAppend;
     
     @FXML
     private void initialize() {
-    	avc = this;
     	alerts = getMain().getMappe().alertListe;
     	boxAppend.setItems(alerts);
+    	FXCollections.sort(alerts);
     }
 
-	public void addMessage(Message m) {
+	protected void addMessage(Message m) {
 		alerts.add(m);
+		FXCollections.sort(alerts);
 	}
     
     

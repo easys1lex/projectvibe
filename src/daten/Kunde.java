@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import ereignisse.Ereignis;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -28,6 +29,8 @@ public class Kunde implements Serializable {
 	
 	public transient ObservableList<Notiz> notizListe;
 	private  Notiz[] notizArray;
+	public transient ObservableList<Ereignis> ereignisListe;
+	private Ereignis[] ereignisArray;
 	
 
 	public SimpleIntegerProperty getKundenNummer() {
@@ -107,6 +110,7 @@ public class Kunde implements Serializable {
 		this.telefonnummer = new SimpleLongProperty(telefonnummer);
 		this.isFavorit = new SimpleBooleanProperty(isFavorit);
 		notizListe = FXCollections.observableArrayList();
+		ereignisListe = FXCollections.observableArrayList();
 	}
 
 	private void writeObject(ObjectOutputStream s) throws IOException {
@@ -121,6 +125,8 @@ public class Kunde implements Serializable {
 		s.writeBoolean(this.isFavorit.get());
 		notizArray = notizListe.toArray(new Notiz[notizListe.size()]);
 		s.writeObject(notizArray);
+		ereignisArray = ereignisListe.toArray(new Ereignis[ereignisListe.size()]);
+		s.writeObject(ereignisArray);
 		
 	}
 
@@ -137,7 +143,12 @@ public class Kunde implements Serializable {
 		this.notizListe = FXCollections.observableArrayList();
 		this.notizArray = (Notiz[]) s.readObject();
 		for (Notiz n : notizArray) {
-			notizListe.add(n);
+			this.notizListe.add(n);
+		}
+		this.ereignisListe = FXCollections.observableArrayList();
+		this.ereignisArray = (Ereignis[])s.readObject();
+		for (Ereignis e :ereignisArray) {
+			this.ereignisListe.add(e);
 		}
 	}
 }

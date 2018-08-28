@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import alerts.Message;
+import ereignisse.Ereignis;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,11 +29,20 @@ public class Arbeitsmappe implements Serializable {
 	
 	private Kunde[] kundenArray;
 	private int kundenAnzahl;
+	private int ereignisAnzahl;
 
 	public Arbeitsmappe() {
+		kundenAnzahl = 0;
+		ereignisAnzahl = 0;
 		kundenListe = FXCollections.observableArrayList();
 		alertListe = FXCollections.observableArrayList();
 		notizListe = FXCollections.observableArrayList();
+	}
+	
+	public Ereignis insertEreignis(Kunde k) {
+		Ereignis temp = new Ereignis(++ereignisAnzahl,"Neues Ereignis","Neuer Ereignis-Inhalt");
+		k.ereignisListe.add(temp);
+		return temp;
 	}
 
 	public Kunde insertKunde() {
@@ -44,17 +54,19 @@ public class Arbeitsmappe implements Serializable {
 		kundenArray = kundenListe.toArray(new Kunde[kundenListe.size()]);
 		s.defaultWriteObject();
 		s.writeInt(kundenAnzahl);
+		s.writeInt(ereignisAnzahl);
 		s.writeObject(kundenArray);
 		notizArray = notizListe.toArray(new Notiz[notizListe.size()]);
 		s.writeObject(notizArray);
 		alertArray = alertListe.toArray(new Message[alertListe.size()]);
-		s.writeObject(notizArray);
+		s.writeObject(alertArray);
 	}
 
 	private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
 		s.defaultReadObject();
 		this.kundenListe = FXCollections.observableArrayList();
 		this.kundenAnzahl = s.readInt();
+		this.ereignisAnzahl = s.readInt();
 		this.kundenArray = (Kunde[]) s.readObject();
 		for (Kunde k : kundenArray) {
 			kundenListe.add(k);

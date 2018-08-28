@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.Optional;
 
+import application.Main;
 import daten.Notiz;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,10 +12,16 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 
 public class NotizController extends Controller {
+	public NotizController() {
+		super(Main.getHauptController().getMain());
+		// TODO Auto-generated constructor stub
+	}
+
 	ObservableList<Notiz> notizen = null;
 
 	public void setListe(ObservableList<Notiz> n) {
 		notizen = n;
+		updateNotizView();
 	}
 
 	@FXML
@@ -46,7 +53,6 @@ public class NotizController extends Controller {
 
 	@FXML
 	private void initialize() {
-		nc = this;
 		setListe(getMain().getMappe().notizListe);
 		updateNotizView();
 

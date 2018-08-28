@@ -1,12 +1,17 @@
 package controllers;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 
 public class MenuController extends Controller{
 
-    @FXML
+    public MenuController() {
+		super(Main.getHauptController().getMain());
+	}
+
+	@FXML
     private MenuItem mNotizen;
 
     @FXML
@@ -56,7 +61,7 @@ public class MenuController extends Controller{
 
     @FXML
     void loadArbeismappe(ActionEvent event) {
-    	openArbeitsmappe();
+    	openArbeitsmappeFromFile();
     	updateDisable();
     }
 
@@ -141,7 +146,6 @@ public class MenuController extends Controller{
     }
     @FXML
     public void initialize() {
-    	mc=this;
     	updateDisable();
     }
     
@@ -150,5 +154,6 @@ public class MenuController extends Controller{
     	showStartScene();
 //    	updateDisable();
     }
+
 
 }
