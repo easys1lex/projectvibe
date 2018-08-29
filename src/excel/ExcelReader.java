@@ -37,6 +37,8 @@ public class ExcelReader {
 		if(importFile!=null) {
 			if(initialisiereExcelreaderFromFile(importFile)) {
 				erstelleArbeitsmappeFromExcel();
+			}else {
+				System.out.println("Fehler beim Importieren");
 			}
 		}
 	}
@@ -153,6 +155,7 @@ public class ExcelReader {
 			return true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Error beim laden");
 			e.printStackTrace();
 			return false;
 		}
