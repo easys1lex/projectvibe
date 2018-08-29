@@ -10,8 +10,6 @@ import java.io.ObjectOutputStream;
 import java.util.Optional;
 
 import alerts.ErrorMessage;
-import alerts.InfoMessage;
-import alerts.Message;
 import alerts.SuccessMessage;
 import application.Main;
 import daten.Arbeitsmappe;
@@ -19,7 +17,6 @@ import daten.Notiz;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -247,7 +244,7 @@ public class Controller {
 		getMain().getRootStage().setScene(getMain().getAlertScene());
 	}
 	public ListView<Notiz> loadNotizView(ObservableList<Notiz> notizListe) {
-		FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/NotizView.fxml"));
+		FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("/views/NotizView.fxml"));
 		ListView<Notiz>notizRoot = null;
 		try {
 			notizRoot = (ListView<Notiz>) notizLoader.load();
@@ -265,7 +262,7 @@ public class Controller {
 		FXMLLoader loader = null;
 		NotizDetailController ndc = null;
 		try {
-			loader = new FXMLLoader(getClass().getResource("../views/NotizDetailView.fxml"));
+			loader = new FXMLLoader(getClass().getResource("/views/NotizDetailView.fxml"));
 			root = (VBox) loader.load();
 			Stage notizStage = new Stage();
 			notizStage.setTitle("Notiz bearbeiten");

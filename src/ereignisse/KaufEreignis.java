@@ -2,6 +2,11 @@ package ereignisse;
 
 public class KaufEreignis extends Ereignis{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2867346279793353227L;
+
 	public KaufEreignis(int ereignisID, String ereignisTitel, String ereignisInhalt, long termin) {
 		super(ereignisID, ereignisTitel, ereignisInhalt);
 		// TODO Auto-generated constructor stub

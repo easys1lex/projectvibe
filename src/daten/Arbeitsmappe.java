@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import alerts.Message;
-import ereignisse.Ereignis;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

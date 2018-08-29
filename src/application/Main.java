@@ -13,7 +13,6 @@ import controllers.NotizController;
 import controllers.NotizDetailController;
 import controllers.StartanzeigenController;
 import daten.Arbeitsmappe;
-import daten.Kunde;
 import daten.Notiz;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +20,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
@@ -36,7 +34,6 @@ public class Main extends Application {
 	protected StartanzeigenController sac;
 	protected FensterController fc;
 	protected MenuController mc;
-	protected NotizController nc;
 	protected AlertViewController avc;
 
 	public static Controller getHauptController() {
@@ -138,7 +135,7 @@ public class Main extends Application {
 
 	private void initialisiereStartScreen() {
 		try {
-			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../views/Startanzeige.fxml"));
+			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/views/Startanzeige.fxml"));
 			root.setTop(createMenuBar());
 			setStartScene(new Scene(root));
 		} catch (Exception e) {
@@ -154,7 +151,7 @@ public class Main extends Application {
 
 	private void initialisiereNotizScene() {
 		try {
-			FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/Fenster.fxml"));
+			FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("/views/Fenster.fxml"));
 			BorderPane notizRoot = (BorderPane) notizLoader.load();
 			Button b = new Button("Erstelle Notiz");
 			b.setOnAction(click -> {
@@ -173,17 +170,12 @@ public class Main extends Application {
 		}
 	}
 
-	private void setNotizController(NotizController controller) {
-		this.nc = controller;
-
-	}
-
 	private void initialisiereKundenScene() {
 		try {
-			FXMLLoader detailLoader = new FXMLLoader(getClass().getResource("../views/KundenDetailAnzeige.fxml"));
+			FXMLLoader detailLoader = new FXMLLoader(getClass().getResource("/views/KundenDetailAnzeige.fxml"));
 			VBox kundenDetail = (VBox) detailLoader.load();
 			setKundenDetailController(detailLoader.getController());
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Kundenanzeige.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Kundenanzeige.fxml"));
 			BorderPane kundenRoot = (BorderPane) loader.load();
 			kundenRoot.setTop(createMenuBar());
 			SplitPane sp = (SplitPane) kundenRoot.getCenter();
@@ -208,7 +200,7 @@ public class Main extends Application {
 
 	private void initialisiereAlertScene() {
 		try {
-			FXMLLoader alertLoader = new FXMLLoader(getClass().getResource("../views/AlertView.fxml"));
+			FXMLLoader alertLoader = new FXMLLoader(getClass().getResource("/views/AlertView.fxml"));
 			BorderPane AlertRoot = (BorderPane) alertLoader.load();
 			AlertRoot.setTop(createMenuBar());
 			setAlertController(alertLoader.getController());
@@ -233,7 +225,7 @@ public class Main extends Application {
 
 	public Stage createWindow(Stage primaryStage) {
 		try {
-			FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("../views/Fenster.fxml"));
+			FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/views/Fenster.fxml"));
 			BorderPane root = (BorderPane) rootLoader.load();
 			Scene scene = new Scene(root);
 			addMenuBarToScene(scene);
@@ -253,7 +245,7 @@ public class Main extends Application {
 
 	public MenuBar createMenuBar() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/MenuBar.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MenuBar.fxml"));
 			MenuBar menu = (MenuBar) loader.load();
 			return menu;
 		} catch (Exception e) {
@@ -275,7 +267,7 @@ public class Main extends Application {
 	}
 
 	public String getLastPath() {
-		return this.lastPath;
+		return Main.lastPath;
 	}
 
 	public Scene getAlertScene() {
@@ -297,10 +289,6 @@ public class Main extends Application {
 		return this.avc;
 	}
 
-	public NotizController getNotizController() {
-		// TODO Auto-generated method stub
-		return this.nc;
-	}
 
 	public MenuController getMenuController() {
 		// TODO Auto-generated method stub

@@ -120,7 +120,7 @@ public class KundenDetailController extends Controller {
 		FXMLLoader loader = null;
 		EreignisDetailController edc = null;
 		try {
-			loader = new FXMLLoader(getClass().getResource("../views/EreignisDetailView.fxml"));
+			loader = new FXMLLoader(getClass().getResource("/views/EreignisDetailView.fxml"));
 			root = (VBox) loader.load();
 			Stage ereignisStage = new Stage();
 			ereignisStage.setTitle("Ereignis bearbeiten");

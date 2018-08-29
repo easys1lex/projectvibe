@@ -2,6 +2,11 @@ package ereignisse;
 
 public class ErstelltEreignis extends Ereignis{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9176927401311250779L;
+
 	public ErstelltEreignis(int ereignisID, String ereignisTitel, String ereignisInhalt, long termin) {
 		super(ereignisID, ereignisTitel, ereignisInhalt);
 		super.setTermin(termin);

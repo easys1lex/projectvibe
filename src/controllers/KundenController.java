@@ -4,14 +4,10 @@ import java.time.Instant;
 import java.util.Optional;
 
 import alerts.AchtungMessage;
-import alerts.InfoMessage;
 import alerts.SuccessMessage;
 import application.Main;
 import daten.Kunde;
-import daten.Notiz;
-import ereignisse.Ereignis;
 import ereignisse.ErstelltEreignis;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

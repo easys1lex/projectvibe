@@ -90,14 +90,11 @@ public class MenuController extends Controller{
 
     @FXML
     void openImportMenu(ActionEvent event) {
-    	if (frageSaveFirst(true) == false) {
-//			Falls die Aktion abgebrochen wurde, dann importier nicht.
-			return;
-		}
+
     	ExcelReader e = new ExcelReader();
     	createArbeitsmappe(e.getArbeitsmappe());
     	updateDisable();
-    	System.out.println("Arbeitsmappe Imortiert");
+    	System.out.println("Arbeitsmappe Importiert");
     	getMain().getAlertViewController().addMessage(new SuccessMessage("Aus ExcelSheet importiert!"));
     }
 

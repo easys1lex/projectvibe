@@ -5,13 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import controllers.Controller;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
 
 public class Notiz implements Serializable {
 
