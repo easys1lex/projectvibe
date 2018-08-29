@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 
+import alerts.InfoMessage;
 import application.Main;
 import daten.Kunde;
 import daten.Notiz;
@@ -20,11 +21,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class KundenDetailController extends Controller {
 	public KundenDetailController() {
@@ -48,7 +47,7 @@ public class KundenDetailController extends Controller {
 	@FXML
 	void showEreignis(MouseEvent event) {
 		Ereignis e = ereigisListe.getSelectionModel().getSelectedItem();
-		if(e!=null) {
+		if (e != null) {
 			EreignisDetailController edc = createNewEreignisStage();
 			edc.update(e, kunde.ereignisListe);
 		}
@@ -88,9 +87,6 @@ public class KundenDetailController extends Controller {
 	private Button bSpeichern;
 
 	@FXML
-	private MenuItem bEreignisse;
-
-	@FXML
 	private ToggleButton tWichtig;
 
 	@FXML
@@ -108,7 +104,6 @@ public class KundenDetailController extends Controller {
 	@FXML
 	private GridPane gridPane;
 
-	
 	void deleteSelectedEreignis() {
 
 	}
@@ -116,10 +111,10 @@ public class KundenDetailController extends Controller {
 	@FXML
 	void createEreignis(ActionEvent event) {
 		EreignisDetailController edc = createNewEreignisStage();
-		edc.update(null,kunde.ereignisListe);
-		
-	
+		edc.update(null, kunde.ereignisListe);
+
 	}
+
 	public EreignisDetailController createNewEreignisStage() {
 		VBox root;
 		FXMLLoader loader = null;
@@ -133,7 +128,7 @@ public class KundenDetailController extends Controller {
 			ereignisStage.setWidth(600);
 			ereignisStage.setHeight(600);
 			ereignisStage.show();
-			edc = (EreignisDetailController)loader.getController();
+			edc = (EreignisDetailController) loader.getController();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -142,7 +137,7 @@ public class KundenDetailController extends Controller {
 
 	@FXML
 	void createNotiz(ActionEvent event) {
-		Notiz n = new Notiz("Neue Kunden Notiz","");
+		Notiz n = new Notiz("Neue Kunden Notiz", "");
 		getKunde().notizListe.add(n);
 		NotizDetailController ndc = createNewNotizStage();
 		ndc.update(n, getKunde().notizListe);
@@ -154,15 +149,15 @@ public class KundenDetailController extends Controller {
 		scrollPane.setContent(gridPane);
 	}
 
-	@FXML
-	void switchToEreignisView(ActionEvent event) {
-
-	}
+//	@FXML
+//	void switchToEreignisView(ActionEvent event) {
+//
+//	}
 
 	@FXML
 	void switchToNotizView(ActionEvent event) {
 		scrollPane.setContent(loadNotizView(getKunde().notizListe));
-		
+
 	}
 
 	@FXML
@@ -197,6 +192,8 @@ public class KundenDetailController extends Controller {
 		kunde.setAnschrift(lAnschrift.getText());
 		kunde.setTelefonnummer(Long.parseLong(lTelefonnummer.getText()));
 		kunde.setIsFavorit(tWichtig.isSelected());
+		getMain().getAlertViewController()
+				.addMessage(new InfoMessage("Der Kunde [" + kunde.getKundenNummer().get() + "] wurde bearbeitet"));
 	}
 
 	public void update(Kunde k) {
@@ -245,7 +242,7 @@ public class KundenDetailController extends Controller {
 		bNeuesEreignis.setDisable(setlocked);
 		bKunden.setDisable(setlocked);
 		bNotiz.setDisable(setlocked);
-		bEreignisse.setDisable(setlocked);
+//		bEreignisse.setDisable(setlocked);
 	}
 
 	public Kunde getKunde() {

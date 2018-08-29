@@ -98,7 +98,7 @@ public class Ereignis implements Serializable{
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		timeTermin = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.termin.get()), ZoneId.systemDefault());
 		time = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.created.get()), ZoneId.systemDefault());
-		return (getClass().getName()+" ; "+getEreignisID().get()+" \t am "+time.format(dtf)+ " "+getEreignisTitel().get()+"\t"+getEreignisInhalt().get()+" fällig am: "+timeTermin.format(dtf));
+		return (time.format(dtf)+" ["+getClass().getName()+"] eID = "+getEreignisID().get()+"; \t eTitel = \""+getEreignisTitel().get()+"\"\t eInhalt = \""+getEreignisInhalt().get()+"\" Termin am: "+timeTermin.format(dtf)+".");
 	}
 	
 	private void writeObject(ObjectOutputStream s) throws IOException {

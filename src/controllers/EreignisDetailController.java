@@ -5,6 +5,10 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+import alerts.AchtungMessage;
+import alerts.ErrorMessage;
+import alerts.InfoMessage;
+import alerts.SuccessMessage;
 import application.Main;
 import daten.Notiz;
 import ereignisse.Ereignis;
@@ -82,7 +86,6 @@ public class EreignisDetailController extends Controller {
 
 	@FXML
 	void showNotiz(MouseEvent event) {
-
 		Notiz n = notizenAnzeige.getSelectionModel().getSelectedItem();
 		if (n != null) {
 			NotizDetailController ndc = createNewNotizStage();
@@ -96,6 +99,7 @@ public class EreignisDetailController extends Controller {
 		ereignis.notizListe.add(n);
 		NotizDetailController ndc = createNewNotizStage();
 		ndc.update(n, ereignis.notizListe);
+		getMain().getAlertViewController().addMessage(new InfoMessage("Eine Neue Notiz wurde Angelegt"));
 	}
 
 	
@@ -153,44 +157,46 @@ public class EreignisDetailController extends Controller {
 		}
 
 		if (ereignis == null && ereignisListe != null) {
-			getMain().getMappe().addEreignisAnzahl();
+			getMain().getMappe().returnEreignisAnzahl();
 			switch (auswahlBox.getSelectionModel().getSelectedIndex()) {
 			case 0:
 				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new ErstelltEreignis(getMain().getMappe().getEreignisAnzahl(), titel, inhalt, termin));
+						.add(new ErstelltEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
 				break;
 			case 1:
 				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new TreffenEreignis(getMain().getMappe().getEreignisAnzahl(), titel, inhalt, termin));
+						.add(new TreffenEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
 				break;
 			case 2:
 				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new KaufEreignis(getMain().getMappe().getEreignisAnzahl(), titel, inhalt, termin));
+						.add(new KaufEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
 				break;
 			case 3:
 				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new ReclamationEreignis(getMain().getMappe().getEreignisAnzahl(), titel, inhalt, termin));
+						.add(new ReclamationEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
 				break;
 			default:
 				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new KontaktEreignis(getMain().getMappe().getEreignisAnzahl(), titel, inhalt, termin));
+						.add(new KontaktEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
 				break;
 			}
-			System.out.println("EreignisErstellt");
-			System.out.println(termin);
+			getMain().getAlertViewController().addMessage(new SuccessMessage("Ein Neues Ereignis ["+titel+"] wurde Angelegt"));
+//			System.out.println("EreignisErstellt");
+//			System.out.println(termin);
 		} else if (ereignisListe != null) {
 			ereignis.getEreignisTitel().set(titel);
 			ereignis.getEreignisInhalt().set(inhalt);
 			ereignis.getTermin().set(termin);
+			int ereignisIndex = ereignisListe.indexOf(ereignis);
+	    	ereignisListe.remove(ereignis);
+	    	ereignisListe.add(ereignisIndex, ereignis);
 		} else {
-			System.out.println("Nicht Gespeichert");
+			getMain().getAlertViewController().addMessage(new ErrorMessage("Ein Neues Ereignis ["+titel+"] konnte nicht angelegt werden."));
 		}
 		closeFenster(event);
-
 	}
 
 	private void closeFenster(ActionEvent event) {
-		// close the dialog.
 		Node source = (Node) event.getSource();
 		Stage stage = (Stage) source.getScene().getWindow();
 		stage.close();
@@ -200,6 +206,7 @@ public class EreignisDetailController extends Controller {
 	void deleteEreignis(ActionEvent event) {
 		ereignisListe.remove(ereignis);
 		closeFenster(event);
+		getMain().getAlertViewController().addMessage(new AchtungMessage("Das Ereignis ["+ereignis.getEreignisID().get()+"] mit dem Titel ["+ereignis.getEreignisTitel().get()+"] wurde gelöscht."));
 	}
 
 }

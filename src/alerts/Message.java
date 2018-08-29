@@ -1,15 +1,18 @@
 package alerts;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Stack;
 
+
+/**
+ * 
+ */
 public class Message implements Serializable, Comparable {
 	private static final long serialVersionUID = 1L;
+	
+	
 	protected String type;
-
 	private LocalDateTime created;
 	private String message;
 

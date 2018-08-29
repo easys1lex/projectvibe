@@ -198,9 +198,7 @@ public class Main extends Application {
 	}
 
 	private void setKundenDetailController(KundenDetailController controller) {
-		System.out.println("KDC SET");
 		this.kdc = controller;
-
 	}
 
 	private void setKundenController(KundenController controller) {
@@ -309,8 +307,8 @@ public class Main extends Application {
 		return this.mc;
 	}
 
-	public int getEreignisAnzahl() {
-		// TODO Auto-generated method stub
-		return this.getMappe().getEreignisAnzahl();
-	}
+//	public int getEreignisAnzahl() {
+//		// TODO Auto-generated method stub
+//		return this.getMappe().getEreignisAnzahl();
+//	}
 }

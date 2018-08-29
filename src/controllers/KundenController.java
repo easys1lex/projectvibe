@@ -1,5 +1,6 @@
 package controllers;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import alerts.AchtungMessage;
@@ -9,6 +10,7 @@ import application.Main;
 import daten.Kunde;
 import daten.Notiz;
 import ereignisse.Ereignis;
+import ereignisse.ErstelltEreignis;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,11 +88,12 @@ public class KundenController extends Controller {
 
 	@FXML
 	void createNewCustomer(ActionEvent event) {
-		getMain().getMappe().insertKunde();
+		Kunde k = getMain().getMappe().insertKunde();
+		k.ereignisListe.add(new ErstelltEreignis(getMain().getMappe().returnEreignisAnzahl(), "Neuer Kunde mit der ID: "+k.getKundenNummer().get()+" wurde erstellt", "", Instant.now().toEpochMilli()));
 		kundenTabelle.getSelectionModel().selectLast();
 		getMain().getKundenDetailController().makeEditable();
 		updateView();
-		getMain().getAlertViewController().addMessage(new InfoMessage("Ein neuer Kunde wurde angelegt"));
+		getMain().getAlertViewController().addMessage(new SuccessMessage("Kunde mit der ID ["+k.getKundenNummer().get()+"] wurde angelegt."));
 	}
 
 	@FXML
@@ -106,7 +109,7 @@ public class KundenController extends Controller {
 			int ausgewaelterKunde = kundenTabelle.getSelectionModel().getSelectedIndex();
 			Kunde k = kundenTabelle.getSelectionModel().getSelectedItem();
 			getMain().getAlertViewController().addMessage(new AchtungMessage(
-					"Ein Kunde " + k.getName().get() + " der Firma " + k.getFirma().get() + " wurde gelöscht."));
+					"Ein Kunde [" + k.getKundenNummer().get() + "] der Firma [" + k.getFirma().get() + "] wurde gelöscht."));
 			kundenTabelle.getItems().remove(ausgewaelterKunde);
 			updateView();
 		}
@@ -114,7 +117,7 @@ public class KundenController extends Controller {
 
 	@FXML
 	public void initialize() {
-		System.out.println("Kundentabelle wird initialisiert.");
+//		System.out.println("Kundentabelle wird initialisiert.");
 		kundenIDColumn.setCellValueFactory(cellData -> cellData.getValue().getKundenNummer().asObject());
 		kundenFirmaColumn.setCellValueFactory(cellData -> cellData.getValue().getFirma());
 		kundenNameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
@@ -126,7 +129,7 @@ public class KundenController extends Controller {
 
 		kundenTabelle.setItems(getMain().getMappe().kundenListe);
 		if (getMain().getKundenDetailController() != null) {
-			System.out.println("kdc exists");
+//			System.out.println("kdc exists");
 			kundenTabelle.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 				getMain().getKundenDetailController().update(newValue);
 				updateView();

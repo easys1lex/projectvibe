@@ -139,7 +139,7 @@ public class MenuController extends Controller{
     	}else {
     		mSaveArbeitsmappe.setDisable(false);
     		mSaveArbeitsmappeUnter.setDisable(false);
-    		mExport.setDisable(false);
+    		mExport.setDisable(true);
     		mNotizen.setDisable(false);
     		mKunden.setDisable(false);
     		mAlerts.setDisable(false);

@@ -3,6 +3,8 @@ package controllers;
 import java.time.Instant;
 import java.time.ZoneId;
 
+import alerts.AchtungMessage;
+import alerts.InfoMessage;
 import application.Main;
 import daten.Notiz;
 import ereignisse.Ereignis;
@@ -41,14 +43,17 @@ public class NotizDetailController extends Controller{
     	}
     	notiz.getTitel().set(titel);
     	notiz.getInhalt().set(inhalt);
+    	int notizIndex = notizListe.indexOf(notiz);
+    	notizListe.remove(notiz);
+    	notizListe.add(notizIndex, notiz);
     	closeFenster(event);
-    	
     }
 
     @FXML
     void deleteNotiz(ActionEvent event) {
     	notizListe.remove(notiz);
     	closeFenster(event);
+    	getMain().getAlertViewController().addMessage(new AchtungMessage("Die Notiz ["+notiz.getTitel().get()+"] wurde gelöscht."));
     }
     /**
      * TODO 

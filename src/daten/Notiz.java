@@ -23,7 +23,7 @@ public class Notiz implements Serializable {
 		return titel;
 	}
 	public String toString() {
-		return this.titel.get()+"\t"+this.inhalt.get();
+		return "["+this.titel.get()+"]\t\""+this.inhalt.get()+"\"";
 		
 	}
 

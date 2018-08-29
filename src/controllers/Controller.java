@@ -9,7 +9,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Optional;
 
+import alerts.ErrorMessage;
+import alerts.InfoMessage;
 import alerts.Message;
+import alerts.SuccessMessage;
 import application.Main;
 import daten.Arbeitsmappe;
 import daten.Notiz;
@@ -81,17 +84,17 @@ public class Controller {
 		getMain().setMappe(temp);
 		getMain().setSaveFile(null);
 		getMain().initializeArbeitsmappenScenes();
-		if(getMain().getKundenController()==null) {
-			System.out.println("kundencontroller wurde nicht initialisiert");
-		}
-		if(getMain().getKundenDetailController()==null) {
-			System.out.println("kundendetailcontroller wurde nicht initialisiert");
-		}
+		showKundenScene();
+//		if(getMain().getKundenController()==null) {
+//			System.out.println("kundencontroller wurde nicht initialisiert");
+//		}
+//		if(getMain().getKundenDetailController()==null) {
+//			System.out.println("kundendetailcontroller wurde nicht initialisiert");
+//		}
 		
 		
 		if(getMain().getAlertViewController() != null) {
-			getMain().getAlertViewController().addMessage(new Message("Neue Arbeitsmappe erstellt"));
-			System.out.println("NEUE MESSAGE WURDE ERSTELLT");
+			getMain().getAlertViewController().addMessage(new SuccessMessage("Eine neue Arbeitsmappe wurde erstellt!"));
 		}else {
 			System.err.println("AlertViewController ist nicht initialisiert");
 		}
@@ -152,7 +155,7 @@ public class Controller {
 				ex.printStackTrace();
 			}
 		} else {
-			System.err.println("Keine gültige Arbeitsmappen/Fileauswahl vorhanden.");
+			getMain().getAlertViewController().addMessage(new ErrorMessage("Die Arbeitsmappe konnte nicht gespeichert werden!"));
 		}
 	}
 
@@ -183,6 +186,7 @@ public class Controller {
 	}
 
 	public void writeArbeitsMappeToFile(File file) throws IOException {
+		getMain().getAlertViewController().addMessage(new SuccessMessage("Die Arbeitsmappe wurde in ["+file.getAbsolutePath()+"] gespeichert!"));
 		Arbeitsmappe a = main.getMappe();
 		FileOutputStream fos = new FileOutputStream(file);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -199,11 +203,11 @@ public class Controller {
 	public void exitApplication(boolean mitAbbrechen) {
 		if (getMain().getMappe() != null) {
 			if (frageSaveFirst(mitAbbrechen) != false) {
-				System.out.println("EXIT UserApproved");
+//				System.out.println("EXIT UserApproved");
 				Platform.exit();
 			}
 		} else {
-			System.out.println("EXIT NothingToSave");
+//			System.out.println("EXIT NothingToSave");
 			Platform.exit();
 		}
 	}

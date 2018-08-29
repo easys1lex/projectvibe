@@ -38,12 +38,6 @@ public class Arbeitsmappe implements Serializable {
 		alertListe = FXCollections.observableArrayList();
 		notizListe = FXCollections.observableArrayList();
 	}
-	
-	public Ereignis insertEreignis(Kunde k) {
-		Ereignis temp = new Ereignis(++ereignisAnzahl,"Neues Ereignis","Neuer Ereignis-Inhalt");
-		k.ereignisListe.add(temp);
-		return temp;
-	}
 
 	public Kunde insertKunde() {
 		Kunde temp = new Kunde(++kundenAnzahl,"","","","","Neuer Kunde",0l,false);
@@ -83,13 +77,9 @@ public class Arbeitsmappe implements Serializable {
 		}
 	}
 
-	public int getEreignisAnzahl() {
+	public int returnEreignisAnzahl() {
 		// TODO Auto-generated method stub
-		return this.ereignisAnzahl;
+		return ++this.ereignisAnzahl;
 	}
 
-	public void addEreignisAnzahl() {
-		// TODO Auto-generated method stub
-		++ereignisAnzahl;
-	}
 }

@@ -17,7 +17,6 @@
             <MenuButton mnemonicParsing="false" text="Anzeige">
               <items>
                 <MenuItem fx:id="bKunden" mnemonicParsing="false" onAction="#switchToKundenView" text="Kunde" />
-                <MenuItem fx:id="bEreignisse" mnemonicParsing="false" onAction="#switchToEreignisView" text="Ereignisse &amp; Termine" />
                   <MenuItem fx:id="bNotiz" mnemonicParsing="false" onAction="#switchToNotizView" text="Notizen" />
               </items>
             </MenuButton>
