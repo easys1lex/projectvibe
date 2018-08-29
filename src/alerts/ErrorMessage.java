@@ -12,4 +12,11 @@ public class ErrorMessage extends Message{
 		super.type = "ERROR";
 	}
 
+	public ErrorMessage(long created, String nachricht) {
+		// TODO Auto-generated constructor stub
+		super(nachricht);
+		super.type = "AUSGEFÜHRT";
+		super.setCreated(created);
+	}
+
 }

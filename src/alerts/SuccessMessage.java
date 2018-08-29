@@ -12,4 +12,10 @@ public class SuccessMessage extends Message {
 		super.type = "AUSGEFÜHRT";
 	}
 
+	public SuccessMessage(long created, String nachricht) {
+		super(nachricht);
+		super.type = "AUSGEFÜHRT";
+		super.setCreated(created);
+	}
+
 }

@@ -1,6 +1,7 @@
 package alerts;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -22,6 +23,13 @@ public class Message implements Serializable, Comparable {
 		type = "NACHRICHT";
 	}
 
+	public Message(long created, String nachricht) {
+		// TODO Auto-generated constructor stub
+		this.message = nachricht;
+		this.type = "AUSGEFÜHRT";
+		this.setCreated(created);
+	}
+
 	public String toString() {
 		return created.getDayOfMonth() + "." + created.getMonthValue() + "." + created.getYear() + " um "
 				+ created.getHour() + ":" + created.getMinute() + " Uhr \t [" + type + "] \t " + message;
@@ -41,6 +49,21 @@ public class Message implements Serializable, Comparable {
 			return 0;
 		}
 
+	}
+
+	public long getCreated() {
+		ZoneId zoneId = ZoneId.systemDefault();
+		return this.created.atZone(zoneId).toEpochSecond();
+	}
+
+	public String getNachricht() {
+		// TODO Auto-generated method stub
+		return this.message;
+	}
+
+	public void setCreated(long created) {
+		this.created =  LocalDateTime.ofInstant(Instant.ofEpochMilli(created), ZoneId.systemDefault());
+		
 	}
 
 }

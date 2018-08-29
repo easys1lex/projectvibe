@@ -94,11 +94,18 @@ public class Ereignis implements Serializable{
 		notizListe = FXCollections.observableArrayList();
 	}
 	
+	public Ereignis(int id, String titel, String inhalt, long erstellt, long termin2) {
+		// TODO Auto-generated constructor stub
+		this(id, titel, inhalt);
+		this.setTermin(termin);
+		this.getCreated().set(erstellt);
+	}
+
 	public String toString() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		timeTermin = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.termin.get()), ZoneId.systemDefault());
 		time = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.created.get()), ZoneId.systemDefault());
-		return (time.format(dtf)+" ["+getClass().getName()+"] "+getEreignisID().get()+"; \t \""+getEreignisTitel().get()+"\"\t Inhalt = \""+getEreignisInhalt().get()+"\" Termin am: "+timeTermin.format(dtf)+".");
+		return (time.format(dtf)+" ["+getClass().getSimpleName()+"] "+getEreignisID().get()+"; \t \""+getEreignisTitel().get()+"\"\t Inhalt = \""+getEreignisInhalt().get()+"\" Termin am: "+timeTermin.format(dtf)+".");
 	}
 	
 	private void writeObject(ObjectOutputStream s) throws IOException {

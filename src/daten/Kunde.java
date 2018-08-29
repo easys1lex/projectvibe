@@ -113,6 +113,10 @@ public class Kunde implements Serializable {
 		ereignisListe = FXCollections.observableArrayList();
 	}
 
+	public Kunde(int kid) {
+		this.kundenNummer = new SimpleIntegerProperty(kid);
+	}
+
 	private void writeObject(ObjectOutputStream s) throws IOException {
 		s.defaultWriteObject();
 		s.writeInt(this.kundenNummer.get());
@@ -151,4 +155,11 @@ public class Kunde implements Serializable {
 			this.ereignisListe.add(e);
 		}
 	}
+	@Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        return this.getKundenNummer().get() == ((Kunde) obj).getKundenNummer().get();
+    }
 }

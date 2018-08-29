@@ -20,7 +20,7 @@ public class StartanzeigenController extends Controller {
 
 	@FXML
 	void createNewArbeitsmappe(ActionEvent event) {
-		createArbeitsmappe();
+		createArbeitsmappe(null);
 		showKundenScene();
 	}
 

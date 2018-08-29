@@ -10,6 +10,13 @@ public class InfoMessage extends Message{
 		super(message);
 		super.type = "INFO";
 	}
+
+	public InfoMessage(long created, String nachricht) {
+		// TODO Auto-generated constructor stub
+		super(nachricht);
+		super.type = "AUSGEFÜHRT";
+		super.setCreated(created);
+	}
 	
 
 }

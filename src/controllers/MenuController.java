@@ -1,6 +1,10 @@
 package controllers;
 
+import alerts.InfoMessage;
+import alerts.SuccessMessage;
 import application.Main;
+import excel.ExcelReader;
+import excel.ExcelWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -55,7 +59,7 @@ public class MenuController extends Controller{
 
     @FXML
     void createNewArbeitsmappe(ActionEvent event) {
-    	createArbeitsmappe();
+    	createArbeitsmappe(null);
     	updateDisable();
     }
 
@@ -79,12 +83,22 @@ public class MenuController extends Controller{
 
     @FXML
     void openExportMenu(ActionEvent event) {
+    	ExcelWriter e = new ExcelWriter(getMain().getMappe());
+    	getMain().getAlertViewController().addMessage(new InfoMessage("Arbeitsmappe wurde exportiert."));
     	updateDisable();
     }
 
     @FXML
     void openImportMenu(ActionEvent event) {
+    	if (frageSaveFirst(true) == false) {
+//			Falls die Aktion abgebrochen wurde, dann importier nicht.
+			return;
+		}
+    	ExcelReader e = new ExcelReader();
+    	createArbeitsmappe(e.getArbeitsmappe());
     	updateDisable();
+    	System.out.println("Arbeitsmappe Imortiert");
+    	getMain().getAlertViewController().addMessage(new SuccessMessage("Aus ExcelSheet importiert!"));
     }
 
     @FXML
@@ -136,14 +150,17 @@ public class MenuController extends Controller{
     		mKunden.setDisable(true);
     		mAlerts.setDisable(true);
     		mStartanzeige.setDisable(true);
+    		mImport.setDisable(false);
+    		
     	}else {
     		mSaveArbeitsmappe.setDisable(false);
     		mSaveArbeitsmappeUnter.setDisable(false);
-    		mExport.setDisable(true);
+    		mExport.setDisable(false);
     		mNotizen.setDisable(false);
     		mKunden.setDisable(false);
     		mAlerts.setDisable(false);
     		mStartanzeige.setDisable(true);
+    		mImport.setDisable(false);
     	}
     }
     @FXML

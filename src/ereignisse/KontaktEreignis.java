@@ -8,4 +8,11 @@ public class KontaktEreignis extends Ereignis{
 		super.setTermin(termin);
 	}
 
+	public KontaktEreignis(int id, String titel, String inhalt, long erstellt, long termin) {
+		// TODO Auto-generated constructor stub
+		super(id, titel, inhalt);
+		super.setTermin(termin);
+		super.getCreated().set(erstellt);
+	}
+
 }

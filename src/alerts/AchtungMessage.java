@@ -12,4 +12,11 @@ public class AchtungMessage extends Message{
 		super.type = "ACHTUNG";
 	}
 
+	public AchtungMessage(long created, String nachricht) {
+		// TODO Auto-generated constructor stub
+		super(nachricht);
+		super.type = "AUSGEFÜHRT";
+		super.setCreated(created);
+	}
+
 }

@@ -73,14 +73,20 @@ public class Controller {
 		return null;
 	}
 
-	public void createArbeitsmappe() {
+	public void createArbeitsmappe(Arbeitsmappe a) {
 		if (getMain().getMappe() != null) {
 			if (frageSaveFirst(true) == false) {
 //				Falls die Aktion abgebrochen wurde, dann erstelle keine neue Arbeitsmappe.
 				return;
 			}
 		}
-		Arbeitsmappe temp = new Arbeitsmappe();
+		Arbeitsmappe temp;
+		if(a!=null) {
+			temp = a;
+		}else {
+			temp = new Arbeitsmappe();
+		}
+		 
 		getMain().setMappe(temp);
 		getMain().setSaveFile(null);
 		getMain().initializeArbeitsmappenScenes();
@@ -102,7 +108,7 @@ public class Controller {
 	}
 
 
-	private boolean frageSaveFirst(boolean abbrechenEnabled) {
+	protected boolean frageSaveFirst(boolean abbrechenEnabled) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Speichere Arbeitsmappe?");
 		alert.setHeaderText("Möchten Sie die derzeit ausgewählte Arbeitsmappe speichern?");
