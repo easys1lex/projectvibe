@@ -10,6 +10,7 @@ import controllers.KundenController;
 import controllers.KundenDetailController;
 import controllers.MenuController;
 import controllers.NotizController;
+import controllers.NotizDetailController;
 import controllers.StartanzeigenController;
 import daten.Arbeitsmappe;
 import daten.Kunde;
@@ -19,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
@@ -152,10 +154,18 @@ public class Main extends Application {
 
 	private void initialisiereNotizScene() {
 		try {
-			FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/NotizView.fxml"));
+			FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/Fenster.fxml"));
 			BorderPane notizRoot = (BorderPane) notizLoader.load();
-			setNotizController(notizLoader.getController());
+			Button b = new Button("Erstelle Notiz");
+			b.setOnAction(click -> {
+				Notiz n = new Notiz("Neue Arbeitsmappen Notiz","");
+				getMappe().notizListe.add(n);
+				NotizDetailController ndc = hauptController.createNewNotizStage();
+				ndc.update(n, getMappe().notizListe);
+			});
 			notizRoot.setTop(createMenuBar());
+			ListView<Notiz>  lv= hauptController.loadNotizView(getMappe().notizListe);
+			notizRoot.setCenter(new VBox(b,lv));
 			setNotizScene(new Scene(notizRoot));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -297,5 +307,10 @@ public class Main extends Application {
 	public MenuController getMenuController() {
 		// TODO Auto-generated method stub
 		return this.mc;
+	}
+
+	public int getEreignisAnzahl() {
+		// TODO Auto-generated method stub
+		return this.getMappe().getEreignisAnzahl();
 	}
 }

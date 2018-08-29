@@ -13,7 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 
-public class Notiz extends TitledPane implements Serializable {
+public class Notiz implements Serializable {
 
 	private static final long serialVersionUID = -2763451768098281520L;
 	private transient SimpleStringProperty titel;
@@ -21,6 +21,10 @@ public class Notiz extends TitledPane implements Serializable {
 
 	public SimpleStringProperty getTitel() {
 		return titel;
+	}
+	public String toString() {
+		return this.titel.get()+"\t"+this.inhalt.get();
+		
 	}
 
 	public void setTitel(SimpleStringProperty titel) {
@@ -39,22 +43,6 @@ public class Notiz extends TitledPane implements Serializable {
 		super();
 		this.titel = new SimpleStringProperty(titel);
 		this.inhalt = new SimpleStringProperty(inhalt);
-		setupBox();
-	}
-
-	private void setupBox() {
-		super.setText(titel.get());
-		super.setCollapsible(false);
-		TextArea a = new TextArea(inhalt.get());
-		a.setEditable(true);
-		a.autosize();
-		a.setOnKeyTyped((event) -> {
-			this.inhalt.set(a.getText());
-			a.autosize();
-		});
-		VBox box = new VBox();
-		box.getChildren().addAll(a);
-		super.setContent(box);
 	}
 
 	private void writeObject(ObjectOutputStream s) throws IOException {
@@ -67,7 +55,6 @@ public class Notiz extends TitledPane implements Serializable {
 		s.defaultReadObject();
 		titel = new SimpleStringProperty((String) s.readObject());
 		inhalt = new SimpleStringProperty((String) s.readObject());
-		setupBox();
 	}
 
 }

@@ -12,15 +12,21 @@ import java.util.Optional;
 import alerts.Message;
 import application.Main;
 import daten.Arbeitsmappe;
+import daten.Notiz;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
 
 public class Controller {
 
@@ -216,20 +222,53 @@ public class Controller {
 
 	public void showStartScene() {
 		getMain().getRootStage().setScene(getMain().getStartScene());
-		getMain().getMenuController().updateDisable();
+//		getMain().getMenuController().updateDisable();
 	}
 
 	public void showKundenScene() {
 		getMain().getRootStage().setScene(getMain().getKundenScene());
-		getMain().getKundenController().initialize();
 	}
 
 	public void showNotizScene() {
 		getMain().getRootStage().setScene(getMain().getNotizScene());
-		getMain().getNotizController().updateNotizView();
+		
 	}
 	public void showAlertScene() {
 		getMain().getRootStage().setScene(getMain().getAlertScene());
+	}
+	public ListView<Notiz> loadNotizView(ObservableList<Notiz> notizListe) {
+		FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/NotizView.fxml"));
+		ListView<Notiz>notizRoot = null;
+		try {
+			notizRoot = (ListView<Notiz>) notizLoader.load();
+			NotizController nc = (NotizController)notizLoader.getController();
+			nc.update(notizListe);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return notizRoot;
+		
+	}
+	public NotizDetailController createNewNotizStage() {
+		VBox root;
+		FXMLLoader loader = null;
+		NotizDetailController ndc = null;
+		try {
+			loader = new FXMLLoader(getClass().getResource("../views/NotizDetailView.fxml"));
+			root = (VBox) loader.load();
+			Stage notizStage = new Stage();
+			notizStage.setTitle("Notiz bearbeiten");
+			notizStage.setScene(new Scene(root));
+			notizStage.setWidth(600);
+			notizStage.setHeight(400);
+			notizStage.show();
+			notizStage.setResizable(false);
+			ndc = (NotizDetailController)loader.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ndc;
 	}
 
 }

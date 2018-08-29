@@ -1,15 +1,11 @@
 package controllers;
 
-import java.util.Optional;
-
 import application.Main;
 import daten.Notiz;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 public class NotizController extends Controller {
 	public NotizController() {
@@ -17,61 +13,31 @@ public class NotizController extends Controller {
 		// TODO Auto-generated constructor stub
 	}
 
-	ObservableList<Notiz> notizen = null;
-
-	public void setListe(ObservableList<Notiz> n) {
-		notizen = n;
-		updateNotizView();
-	}
+	ObservableList<Notiz> notizListe;
+	Notiz notiz;
 
 	@FXML
-	private VBox flowPane;
-
-	@FXML
-	private Button bNeueNotiz;
-
-	@FXML
-	void createNewNotiz(ActionEvent event) {
-		erstelleNotiz(getMain().getMappe().notizListe);
-	}
-
-	public void erstelleNotiz(ObservableList<Notiz> liste) {
-		setListe(liste);
-		notizen = liste;
-		TextInputDialog dialog = new TextInputDialog("Neue Notiz");
-		dialog.setTitle("Neue Notiz");
-		dialog.setHeaderText("Erstelle eine neue Notiz");
-		dialog.setContentText("Notizname: ");
-		Optional<String> result = dialog.showAndWait();
-		result.ifPresent(name -> {
-			Notiz n = new Notiz(name, "");
-			liste.add(n);
-		});
-		updateNotizView();
-
-	}
+	private ListView<Notiz> notizAnzeige;
 
 	@FXML
 	private void initialize() {
-		setListe(getMain().getMappe().notizListe);
-		updateNotizView();
-
+		notizListe = getMain().getMappe().notizListe;
+		notizAnzeige.setItems(notizListe);
+	}
+	
+	@FXML
+	void showNotiz(MouseEvent event) {
+		System.out.println("FIRE");
+		Notiz n = notizAnzeige.getSelectionModel().getSelectedItem();
+		if(n!=null) {
+			NotizDetailController ndc = createNewNotizStage();
+			ndc.update(n, this.notizListe);
+		}
 	}
 
-	public void updateNotizView() {
-		flowPane.getChildren().clear();
-		Button deleteNotiz = null;
-		for (Notiz n : notizen) {
-			if (((VBox) n.getContent()).getChildren().size() < 2) {
-				deleteNotiz = new Button("Löschen");
-				((VBox) n.getContent()).getChildren().add(deleteNotiz);
-				deleteNotiz.setOnAction((event) -> {
-					notizen.remove(n);
-					updateNotizView();
-				});
-			}
-			flowPane.getChildren().add(n);
-		}
+	public void update(ObservableList<Notiz> notizListe) {
+		this.notizListe = notizListe;
+		notizAnzeige.setItems(notizListe);
 	}
 
 }

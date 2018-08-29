@@ -135,6 +135,7 @@ public class MenuController extends Controller{
     		mNotizen.setDisable(true);
     		mKunden.setDisable(true);
     		mAlerts.setDisable(true);
+    		mStartanzeige.setDisable(true);
     	}else {
     		mSaveArbeitsmappe.setDisable(false);
     		mSaveArbeitsmappeUnter.setDisable(false);
@@ -142,6 +143,7 @@ public class MenuController extends Controller{
     		mNotizen.setDisable(false);
     		mKunden.setDisable(false);
     		mAlerts.setDisable(false);
+    		mStartanzeige.setDisable(true);
     	}
     }
     @FXML

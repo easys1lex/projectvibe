@@ -96,8 +96,9 @@ public class Ereignis implements Serializable{
 	
 	public String toString() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-		return ("Ereignis "+getEreignisID().get()+" \t am "+time.format(dtf)+ " "+getEreignisTitel().get()+"\t"+getEreignisInhalt().get()+" fällig am: "+timeTermin.format(dtf));
-		
+		timeTermin = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.termin.get()), ZoneId.systemDefault());
+		time = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.created.get()), ZoneId.systemDefault());
+		return (getClass().getName()+" ; "+getEreignisID().get()+" \t am "+time.format(dtf)+ " "+getEreignisTitel().get()+"\t"+getEreignisInhalt().get()+" fällig am: "+timeTermin.format(dtf));
 	}
 	
 	private void writeObject(ObjectOutputStream s) throws IOException {
@@ -125,5 +126,10 @@ public class Ereignis implements Serializable{
 		for (Notiz n : notizArray) {
 			notizListe.add(n);
 		}
+	}
+
+	public void setTermin(long termin) {
+		this.termin = new SimpleLongProperty(termin);
+		
 	}
 }

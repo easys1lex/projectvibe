@@ -43,6 +43,7 @@
                   </Button>
                </children>
             </HBox>
+            <Button fx:id="bNeueNotiz" mnemonicParsing="false" onAction="#erstelleNotiz" text="Neue Notiz" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
          </children>
          <padding>
             <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

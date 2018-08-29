@@ -8,6 +8,7 @@ import alerts.SuccessMessage;
 import application.Main;
 import daten.Kunde;
 import daten.Notiz;
+import ereignisse.Ereignis;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

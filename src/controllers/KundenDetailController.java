@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import application.Main;
 import daten.Kunde;
+import daten.Notiz;
 import ereignisse.Ereignis;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -48,7 +49,8 @@ public class KundenDetailController extends Controller {
 	void showEreignis(MouseEvent event) {
 		Ereignis e = ereigisListe.getSelectionModel().getSelectedItem();
 		if(e!=null) {
-			System.out.println(e.toString());
+			EreignisDetailController edc = createNewEreignisStage();
+			edc.update(e, kunde.ereignisListe);
 		}
 	}
 
@@ -113,27 +115,37 @@ public class KundenDetailController extends Controller {
 
 	@FXML
 	void createEreignis(ActionEvent event) {
-		Ereignis neu = getMain().getMappe().insertEreignis(kunde);
+		EreignisDetailController edc = createNewEreignisStage();
+		edc.update(null,kunde.ereignisListe);
+		
+	
+	}
+	public EreignisDetailController createNewEreignisStage() {
 		VBox root;
+		FXMLLoader loader = null;
+		EreignisDetailController edc = null;
 		try {
-			root = (VBox) FXMLLoader.load(getClass().getResource("../views/EreignisDetailView.fxml"));
+			loader = new FXMLLoader(getClass().getResource("../views/EreignisDetailView.fxml"));
+			root = (VBox) loader.load();
 			Stage ereignisStage = new Stage();
-			ereignisStage.setTitle("Ereignis mit der ID: "+neu.getEreignisID().get());
+			ereignisStage.setTitle("Ereignis bearbeiten");
 			ereignisStage.setScene(new Scene(root));
 			ereignisStage.setWidth(600);
 			ereignisStage.setHeight(600);
 			ereignisStage.show();
+			edc = (EreignisDetailController)loader.getController();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-	
+		return edc;
 	}
 
 	@FXML
 	void createNotiz(ActionEvent event) {
-		getMain().getNotizController().erstelleNotiz(kunde.notizListe);
+		Notiz n = new Notiz("Neue Kunden Notiz","");
+		getKunde().notizListe.add(n);
+		NotizDetailController ndc = createNewNotizStage();
+		ndc.update(n, getKunde().notizListe);
 		switchToNotizView(event);
 	}
 
@@ -149,19 +161,8 @@ public class KundenDetailController extends Controller {
 
 	@FXML
 	void switchToNotizView(ActionEvent event) {
-
-		FXMLLoader notizLoader = new FXMLLoader(getClass().getResource("../views/NotizView.fxml"));
-		try {
-			BorderPane notizRoot = (BorderPane) notizLoader.load();
-			notizRoot.setTop(null);
-			((NotizController) notizLoader.getController()).setListe(kunde.notizListe);
-			((NotizController) notizLoader.getController()).updateNotizView();
-			scrollPane.setContent(notizRoot);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		scrollPane.setContent(loadNotizView(getKunde().notizListe));
+		
 	}
 
 	@FXML
@@ -245,6 +246,11 @@ public class KundenDetailController extends Controller {
 		bKunden.setDisable(setlocked);
 		bNotiz.setDisable(setlocked);
 		bEreignisse.setDisable(setlocked);
+	}
+
+	public Kunde getKunde() {
+		// TODO Auto-generated method stub
+		return this.kunde;
 	}
 
 }

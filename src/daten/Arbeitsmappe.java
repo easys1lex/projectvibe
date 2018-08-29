@@ -82,4 +82,14 @@ public class Arbeitsmappe implements Serializable {
 			alertListe.add(m);
 		}
 	}
+
+	public int getEreignisAnzahl() {
+		// TODO Auto-generated method stub
+		return this.ereignisAnzahl;
+	}
+
+	public void addEreignisAnzahl() {
+		// TODO Auto-generated method stub
+		++ereignisAnzahl;
+	}
 }
