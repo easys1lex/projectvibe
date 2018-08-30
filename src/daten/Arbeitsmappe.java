@@ -80,17 +80,14 @@ public class Arbeitsmappe implements Serializable {
 	}
 
 	public int returnEreignisAnzahl() {
-		// TODO Auto-generated method stub
 		return ++this.ereignisAnzahl;
 	}
 
 	public void setKundenAnzahl(int anzahl) {
-		// TODO Auto-generated method stub
 		this.kundenAnzahl = anzahl;
 	}
 
 	public void setEreignisAnzahl(int anzahl) {
-		// TODO Auto-generated method stub
 		this.ereignisAnzahl = anzahl;
 		
 	}

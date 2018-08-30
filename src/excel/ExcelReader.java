@@ -26,11 +26,11 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class ExcelReader {
-	XSSFWorkbook wb;
-	XSSFSheet kundenSheet;
-	XSSFSheet ereignisSheet;
-	XSSFSheet alertSheet;
-	Arbeitsmappe a;
+	private XSSFWorkbook wb;
+	private XSSFSheet kundenSheet;
+	private XSSFSheet ereignisSheet;
+	private XSSFSheet alertSheet;
+	private Arbeitsmappe a;
 	public ExcelReader() {
 		super();
 		File importFile = getFileFromFileChooser();
@@ -85,7 +85,7 @@ public class ExcelReader {
 					k.ereignisListe.add(new TreffenEreignis(id,titel,inhalt,erstellt,termin));
 					break;
 				case "ereignisse.Ereignis":
-					k.ereignisListe.add(new Ereignis(id,titel,inhalt,erstellt,termin));
+					k.ereignisListe.add(new KontaktEreignis(id,titel,inhalt,erstellt,termin));
 					break;
 				}
 			}
@@ -113,7 +113,7 @@ public class ExcelReader {
 				a.alertListe.add(new InfoMessage(created,nachricht));
 				break;
 			case "Message":
-				a.alertListe.add(new Message(created,nachricht));
+				a.alertListe.add(new InfoMessage(created,nachricht));
 				break;
 			}
 		}
@@ -161,9 +161,9 @@ public class ExcelReader {
 		}
 		
 	}
-	public File getFileFromFileChooser() {
+	private File getFileFromFileChooser() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Exportiere Arbetsmappe in eine Excel File");
+		fileChooser.setTitle("Exportiere Arbeitsmappe in eine Excel File");
 		ExtensionFilter extFilter = new ExtensionFilter("Excel Export (*.xlsx)", "*.xlsx");
 		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showOpenDialog(new Stage());
@@ -175,11 +175,4 @@ public class ExcelReader {
 		}
 		
 	}
-	public XSSFWorkbook getWorkbookFromFile(File f) {
-		
-		return wb;
-		
-	}
-
-
 }

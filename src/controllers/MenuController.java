@@ -11,10 +11,6 @@ import javafx.scene.control.MenuItem;
 
 public class MenuController extends Controller{
 
-    public MenuController() {
-		super(Main.getHauptController().getMain());
-	}
-
 	@FXML
     private MenuItem mNotizen;
 
@@ -56,6 +52,14 @@ public class MenuController extends Controller{
     
     @FXML
     private MenuItem mStartanzeige;
+    
+    /**
+     * das Objekt steuert die Menubar und nimmt aktionen von dem nutzer auf.
+     * es ist zudem für den import und export dialog zuständig.
+     */
+    public MenuController() {
+		super(Main.getHauptController().getMain());
+	}
 
     @FXML
     void createNewArbeitsmappe(ActionEvent event) {
@@ -90,7 +94,6 @@ public class MenuController extends Controller{
 
     @FXML
     void openImportMenu(ActionEvent event) {
-
     	ExcelReader e = new ExcelReader();
     	createArbeitsmappe(e.getArbeitsmappe());
     	updateDisable();
@@ -102,18 +105,12 @@ public class MenuController extends Controller{
     void exitApplication(ActionEvent event) {
     	exitApplication(true);
     	updateDisable();
-    	
     }
 
     @FXML
     void switchToKundenView(ActionEvent event) {
     	showKundenScene();
     	updateDisable();
-    }
-
-    @FXML
-    void switchToEreignisView(ActionEvent event) {
-
     }
 
     @FXML
@@ -127,6 +124,11 @@ public class MenuController extends Controller{
     	showAlertScene();
     	updateDisable();
     }
+    
+    @FXML
+    public void switchToStartanzeige(ActionEvent event) {
+    	showStartScene();
+    }
 
     @FXML
     void showAnzeigeHelp(ActionEvent event) {
@@ -135,6 +137,11 @@ public class MenuController extends Controller{
 
     @FXML
     void showAlertHelp(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void switchToEreignisView(ActionEvent event) {
 
     }
     
@@ -165,11 +172,7 @@ public class MenuController extends Controller{
     	updateDisable();
     }
     
-    @FXML
-    public void switchToStartanzeige(ActionEvent event) {
-    	showStartScene();
-//    	updateDisable();
-    }
+
 
 
 }

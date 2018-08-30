@@ -16,7 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Ereignis implements Serializable{
+public abstract class Ereignis implements Serializable{
 
 	private static final long serialVersionUID = 7468968851031954761L;
 	private transient LocalDateTime time;
@@ -81,6 +81,11 @@ public class Ereignis implements Serializable{
 		return notizListe;
 	}
 	
+	public void setTermin(long termin) {
+		this.termin = new SimpleLongProperty(termin);
+		
+	}
+	
 	public Ereignis(int ereignisID, String ereignisTitel, String ereignisInhalt) {
 		super();
 		this.ereignisID = new SimpleIntegerProperty(ereignisID);
@@ -94,19 +99,11 @@ public class Ereignis implements Serializable{
 	}
 	
 	public Ereignis(int id, String titel, String inhalt, long erstellt, long termin2) {
-		// TODO Auto-generated constructor stub
 		this(id, titel, inhalt);
-		this.setTermin(termin);
+		this.setTermin(termin2);
 		this.getCreated().set(erstellt);
 	}
 
-	public String toString() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-		timeTermin = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.termin.get()), ZoneId.systemDefault());
-		time = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.created.get()), ZoneId.systemDefault());
-		return (time.format(dtf)+" ["+getClass().getSimpleName()+"] "+getEreignisID().get()+"; \t \""+getEreignisTitel().get()+"\"\t Inhalt = \""+getEreignisInhalt().get()+"\" Termin am: "+timeTermin.format(dtf)+".");
-	}
-	
 	private void writeObject(ObjectOutputStream s) throws IOException {
 		s.defaultWriteObject();
 		s.writeInt(this.ereignisID.get());
@@ -133,9 +130,11 @@ public class Ereignis implements Serializable{
 			notizListe.add(n);
 		}
 	}
-
-	public void setTermin(long termin) {
-		this.termin = new SimpleLongProperty(termin);
-		
+	
+	public String toString() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		timeTermin = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.termin.get()), ZoneId.systemDefault());
+		time = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.created.get()), ZoneId.systemDefault());
+		return (time.format(dtf)+" ["+getClass().getSimpleName()+"] "+getEreignisID().get()+"; \t \""+getEreignisTitel().get()+"\"\t Inhalt = \""+getEreignisInhalt().get()+"\" Termin am: "+timeTermin.format(dtf)+".");
 	}
 }

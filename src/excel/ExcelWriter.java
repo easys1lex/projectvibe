@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class ExcelWriter {
+	
 	XSSFWorkbook wb;
 	XSSFSheet kundenSheet;
 	XSSFSheet ereignisSheet;
@@ -34,6 +35,7 @@ public class ExcelWriter {
 			writeToFile();
 		}
 	}
+	
 
 	private void writeToFile() {
 		FileChooser fileChooser = new FileChooser();

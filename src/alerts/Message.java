@@ -9,7 +9,7 @@ import java.time.ZoneId;
 /**
  * 
  */
-public class Message implements Serializable, Comparable {
+public abstract class Message implements Serializable, Comparable {
 	private static final long serialVersionUID = 1L;
 	
 	

@@ -38,9 +38,8 @@ public class EreignisDetailController extends Controller {
 	}
 
 	private Ereignis ereignis;
+	private Ereignis temp;
 	private ObservableList<Ereignis> ereignisListe;
-
-	private int ereignisType = -1;
 
 	@FXML
 	private Button bEreignisLoeschen;
@@ -68,15 +67,8 @@ public class EreignisDetailController extends Controller {
 
 	@FXML
 	private void initialize() {
-
 		auswahlBox.setItems(
 				FXCollections.observableArrayList("Kunde Erstellt", "Kundentreffen", "Kauf", "Reclamation", "Kontakt"));
-		auswahlBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue ov, Number value, Number new_value) {
-				ereignisType = new_value.intValue();
-			}
-
-		});
 	}
 
 	@FXML
@@ -91,18 +83,28 @@ public class EreignisDetailController extends Controller {
 	@FXML
 	void erstelleNotiz(ActionEvent event) {
 		Notiz n = new Notiz("Neue Notiz", "");
-		ereignis.notizListe.add(n);
+		if (ereignis != null) {
+			
+			ereignis.notizListe.add(n);
+		} else {
+			temp = new KontaktEreignis(0, "", "", 0L);
+			temp.notizListe.add(n);
+		}
 		NotizDetailController ndc = createNewNotizStage();
-		ndc.update(n, ereignis.notizListe);
+		if(ereignis!=null) {
+			ndc.update(n, ereignis.notizListe);
+		}else {
+			
+			ndc.update(n, temp.notizListe);
+			notizenAnzeige.setItems(temp.notizListe);
+		}
 		getMain().getAlertViewController().addMessage(new InfoMessage("Eine Neue Notiz wurde Angelegt"));
 	}
-
-	
 
 	public void update(Ereignis e, ObservableList<Ereignis> ereignisListe) {
 		this.ereignis = e;
 		this.ereignisListe = ereignisListe;
-		if (e!=null) {
+		if (e != null) {
 			notizenAnzeige.setItems(e.notizListe);
 		}
 		if (ereignis != null) {
@@ -121,6 +123,9 @@ public class EreignisDetailController extends Controller {
 				break;
 			case "KontaktEreignis":
 				auswahlBox.getSelectionModel().select(4);
+				break;
+			default:
+				auswahlBox.getSelectionModel().select(0);
 				break;
 			}
 			titelArea.setText(e.getEreignisTitel().get());
@@ -155,40 +160,58 @@ public class EreignisDetailController extends Controller {
 			getMain().getMappe().returnEreignisAnzahl();
 			switch (auswahlBox.getSelectionModel().getSelectedIndex()) {
 			case 0:
-				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new ErstelltEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
+				ErstelltEreignis e = new ErstelltEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt,
+						termin);
+				addTempNotizToList(e);
+				getMain().getKundenDetailController().getKunde().ereignisListe.add(e);
 				break;
 			case 1:
-				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new TreffenEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
+				TreffenEreignis e1 = new TreffenEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt,
+						termin);
+				addTempNotizToList(e1);
+				getMain().getKundenDetailController().getKunde().ereignisListe.add(e1);
 				break;
 			case 2:
-				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new KaufEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
+				KaufEreignis e2 = new KaufEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin);
+				addTempNotizToList(e2);
+				getMain().getKundenDetailController().getKunde().ereignisListe.add(e2);
 				break;
 			case 3:
-				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new ReclamationEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
+				ReclamationEreignis e3 = new ReclamationEreignis(getMain().getMappe().returnEreignisAnzahl(), titel,
+						inhalt, termin);
+				addTempNotizToList(e3);
+				getMain().getKundenDetailController().getKunde().ereignisListe.add(e3);
 				break;
 			default:
-				getMain().getKundenDetailController().getKunde().ereignisListe
-						.add(new KontaktEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt, termin));
+				KontaktEreignis e4 = new KontaktEreignis(getMain().getMappe().returnEreignisAnzahl(), titel, inhalt,
+						termin);
+				addTempNotizToList(e4);
+				getMain().getKundenDetailController().getKunde().ereignisListe.add(e4);
 				break;
 			}
-			getMain().getAlertViewController().addMessage(new SuccessMessage("Ein Neues Ereignis ["+titel+"] wurde Angelegt"));
-//			System.out.println("EreignisErstellt");
-//			System.out.println(termin);
+			getMain().getAlertViewController()
+					.addMessage(new SuccessMessage("Ein Neues Ereignis [" + titel + "] wurde Angelegt"));
 		} else if (ereignisListe != null) {
 			ereignis.getEreignisTitel().set(titel);
 			ereignis.getEreignisInhalt().set(inhalt);
 			ereignis.getTermin().set(termin);
 			int ereignisIndex = ereignisListe.indexOf(ereignis);
-	    	ereignisListe.remove(ereignis);
-	    	ereignisListe.add(ereignisIndex, ereignis);
+			ereignisListe.remove(ereignis);
+			ereignisListe.add(ereignisIndex, ereignis);
 		} else {
-			getMain().getAlertViewController().addMessage(new ErrorMessage("Ein Neues Ereignis ["+titel+"] konnte nicht angelegt werden."));
+			getMain().getAlertViewController()
+					.addMessage(new ErrorMessage("Ein Neues Ereignis [" + titel + "] konnte nicht angelegt werden."));
 		}
 		closeFenster(event);
+	}
+
+	private void addTempNotizToList(Ereignis e) {
+		if(temp !=null) {
+			for (Notiz n : temp.notizListe) {
+				e.notizListe.add(n);
+			}
+		}
+		
 	}
 
 	private void closeFenster(ActionEvent event) {
@@ -201,7 +224,9 @@ public class EreignisDetailController extends Controller {
 	void deleteEreignis(ActionEvent event) {
 		ereignisListe.remove(ereignis);
 		closeFenster(event);
-		getMain().getAlertViewController().addMessage(new AchtungMessage("Das Ereignis ["+ereignis.getEreignisID().get()+"] mit dem Titel ["+ereignis.getEreignisTitel().get()+"] wurde gelöscht."));
+		getMain().getAlertViewController()
+				.addMessage(new AchtungMessage("Das Ereignis [" + ereignis.getEreignisID().get() + "] mit dem Titel ["
+						+ ereignis.getEreignisTitel().get() + "] wurde gelöscht."));
 	}
 
 }
