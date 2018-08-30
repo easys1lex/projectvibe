@@ -177,8 +177,8 @@ public class Main extends Application {
 		rootStage = createWindow(rootStage);
 //		Überprüfe, ob schon eine Arbeitsmappe existiert, falls keine existiert lege den startbildschirm fest.
 		String lastSaveLocation = hauptController.pruefeLastSave();
-		if (lastSaveLocation != null) {
-//			Es existiert ein Save, der Die arbeitsmappe aus dem Save wird geladen.
+		if (lastSaveLocation != null && new File(lastSaveLocation).exists()) {
+//			Es existiert ein Save, der Die arbeitsmappe aus dem Save lädt.
 			try {
 				a = hauptController.loadArbeitsMappeFromFile(new File(lastSaveLocation));
 //				Arbeitsmappen Scnene werden initialisiert
@@ -186,6 +186,7 @@ public class Main extends Application {
 //				Dem nutzer wird nun die KundenScene angezeigt
 				hauptController.showKundenScene();
 			} catch (ClassNotFoundException | IOException e) {
+				System.out.println("Fehler beim laden. veruche ein anderes File");
 				e.printStackTrace();
 			}
 		} else {
