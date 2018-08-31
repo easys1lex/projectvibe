@@ -46,7 +46,8 @@ public class Main extends Application {
 	private KundenController kc;
 	private StartanzeigenController sac;
 	private AlertViewController avc;
-
+	
+	
 //	Die Arbeitsmappe, welche von den Controllern bearbeitet wird
 	Arbeitsmappe a = null;
 //	Das SaveFile, in welchem bei einem Quicksave die Arbeitsmappe gespeichert wird.
