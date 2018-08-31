@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EreignisDetailController">
+   <children>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="181.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="399.0" minWidth="10.0" prefWidth="399.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+          <RowConstraints />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <DatePicker fx:id="dateField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextArea fx:id="beschreibungsArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="titelArea" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="auswahlBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Label maxWidth="1.7976931348623157E308" text="  Typ:" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label layoutX="20.0" layoutY="25.0" maxWidth="1.7976931348623157E308" text="  Titel:" textAlignment="CENTER" GridPane.rowIndex="2" />
+            <Label layoutX="20.0" layoutY="98.0" maxWidth="1.7976931348623157E308" text="  Beschreibung:" textAlignment="CENTER" GridPane.rowIndex="3" />
+            <Label layoutX="20.0" layoutY="215.0" maxWidth="1.7976931348623157E308" text="  Termin am:" textAlignment="CENTER" GridPane.rowIndex="4" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <Button fx:id="bEreignisSpeichern" mnemonicParsing="false" onAction="#enterEreignis" text="Ereignis Speichern">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="bEreignisLoeschen" mnemonicParsing="false" onAction="#deleteEreignis" text="Ereignis Löschen">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <Button fx:id="bNeueNotiz" mnemonicParsing="false" onAction="#erstelleNotiz" text="Neue Notiz" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+         </children>
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
+      </GridPane>
+      <ListView fx:id="notizenAnzeige" onMouseClicked="#showNotiz" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</VBox>
