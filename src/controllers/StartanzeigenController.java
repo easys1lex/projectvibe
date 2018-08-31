@@ -30,8 +30,5 @@ public class StartanzeigenController extends Controller {
 		showKundenScene();
 	}
 
-	@FXML
-	private void initialize() {
-	}
 
 }

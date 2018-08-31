@@ -104,10 +104,6 @@ public class KundenDetailController extends Controller {
 	@FXML
 	private GridPane gridPane;
 
-	void deleteSelectedEreignis() {
-
-	}
-
 	@FXML
 	void createEreignis(ActionEvent event) {
 		EreignisDetailController edc = createNewEreignisStage();

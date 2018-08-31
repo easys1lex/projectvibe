@@ -56,13 +56,10 @@ public class Controller {
 				ois.close();
 				fis.close();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return saveLocation;
@@ -70,7 +67,7 @@ public class Controller {
 		return null;
 	}
 
-	public void createArbeitsmappe(Arbeitsmappe a) {
+	protected void createArbeitsmappe(Arbeitsmappe a) {
 		if (getMain().getMappe() != null) {
 			if (frageSaveFirst(true) == false) {
 //				Falls die Aktion abgebrochen wurde, dann erstelle keine neue Arbeitsmappe.
@@ -144,7 +141,7 @@ public class Controller {
 
 	}
 
-	public void speichereUnter() {
+	protected void speichereUnter() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Speichere Arbeitsmappe");
 		ExtensionFilter extFilter = new ExtensionFilter("Vibe Save Files (*.vsf)", "*.vsf");
@@ -162,7 +159,7 @@ public class Controller {
 		}
 	}
 
-	public void openArbeitsmappeFromFile() {
+	protected void openArbeitsmappeFromFile() {
 		if (getMain().getMappe() != null) {
 			if (frageSaveFirst(true) == false) {
 				return;
@@ -190,7 +187,7 @@ public class Controller {
 		}
 	}
 
-	public void writeArbeitsMappeToFile(File file) throws IOException {
+	protected void writeArbeitsMappeToFile(File file) throws IOException {
 		getMain().getAlertViewController().addMessage(new SuccessMessage("Die Arbeitsmappe wurde in ["+file.getAbsolutePath()+"] gespeichert!"));
 		Arbeitsmappe a = main.getMappe();
 		FileOutputStream fos = new FileOutputStream(file);
@@ -217,7 +214,7 @@ public class Controller {
 		}
 	}
 
-	public void normalSave() {
+	protected void normalSave() {
 		if (getMain().getSaveFile() != null) {
 			try {
 				writeArbeitsMappeToFile(getMain().getSaveFile());
@@ -229,7 +226,7 @@ public class Controller {
 		}
 	}
 
-	public void showStartScene() {
+	protected void showStartScene() {
 		getMain().getRootStage().setScene(getMain().getStartScene());
 //		getMain().getMenuController().updateDisable();
 	}
@@ -238,11 +235,11 @@ public class Controller {
 		getMain().getRootStage().setScene(getMain().getKundenScene());
 	}
 
-	public void showNotizScene() {
+	protected void showNotizScene() {
 		getMain().getRootStage().setScene(getMain().getNotizScene());
 		
 	}
-	public void showAlertScene() {
+	protected void showAlertScene() {
 		getMain().getRootStage().setScene(getMain().getAlertScene());
 	}
 	public ListView<Notiz> loadNotizView(ObservableList<Notiz> notizListe) {

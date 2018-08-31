@@ -14,14 +14,5 @@ public class FensterController extends Controller {
 
 	@FXML
     private BorderPane boxPane;
-	
-	@FXML
-	private void initialize() {
-	}
-	
-
-	public void addAlertlabel(Label alertLabel) {
-		boxPane.setBottom(alertLabel);
-	}
 
 }
