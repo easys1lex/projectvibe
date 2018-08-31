@@ -15,8 +15,6 @@ import ereignisse.KaufEreignis;
 import ereignisse.KontaktEreignis;
 import ereignisse.ReclamationEreignis;
 import ereignisse.TreffenEreignis;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

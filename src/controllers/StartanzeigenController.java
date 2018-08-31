@@ -27,7 +27,7 @@ public class StartanzeigenController extends Controller {
 	@FXML
 	void oeffneArbeitsmappe(ActionEvent event) {
 		openArbeitsmappeFromFile();
-
+		showKundenScene();
 	}
 
 	@FXML

@@ -71,6 +71,7 @@ public class MenuController extends Controller{
     void loadArbeismappe(ActionEvent event) {
     	openArbeitsmappeFromFile();
     	updateDisable();
+    	System.out.println("Import geschehen");
     }
 
     @FXML

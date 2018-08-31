@@ -177,6 +177,8 @@ public class Controller {
 			try {
 				getMain().setMappe(loadArbeitsMappeFromFile(file));
 				getMain().setSaveFile(file);
+				getMain().initializeArbeitsmappenScenes();
+				showKundenScene();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			} catch (ClassNotFoundException e) {
